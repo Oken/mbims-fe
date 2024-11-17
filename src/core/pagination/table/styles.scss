@@ -1,0 +1,22 @@
+.ant-table-thead .ant-table-cell {
+  background-color: #D5E5FC !important;
+  &::before {
+    display: none;
+  }
+}
+
+.ant-checkbox .ant-checkbox-inner {
+  border-radius: 0;
+}
+
+
+.ant-pagination .ant-pagination-item {
+  border-radius: 50%;
+  border: 1px solid lighten(#0D1821, 70);
+}
+
+.ant-pagination .ant-pagination-item-active {
+  background-color: #1677ff;
+  color: #fff;
+  border: none;
+}

@@ -1,0 +1,19 @@
+// Modal
+/* CustomModal.module.css */
+.customModal {
+
+    /* Customize the modal's appearance */
+    .ant-modal-header {
+        background-color: #f0f2f5;
+        /* Example header background color */
+    }
+
+    .ant-modal-footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.ant-modal-footer {
+    display: none !important;
+}

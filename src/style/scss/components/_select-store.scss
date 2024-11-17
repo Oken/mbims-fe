@@ -1,0 +1,123 @@
+.select_store {
+  .page-wrapper-new {
+    border-radius: var(--24, 24px) !important;
+
+    .content {
+      //   border: 3px solid coral;
+
+      border-radius: var(--24, 24px);
+      background: var(--White, #fff);
+
+      display: flex;
+      width: 100%;
+      max-width: 815px;
+      padding: 32px var(--24, 24px);
+      flex-direction: column;
+      justify-content: center;
+      //   align-items: center;
+      gap: 40px;
+      overflow: hidden;
+    }
+  }
+
+  .stores {
+    border: 1px solid var(--Primary-Primary-10, #d5e5fc);
+    background: var(--White, #fff);
+    overflow: hidden;
+    border-radius: 12px;
+
+    * {
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+
+    ._header {
+      display: grid;
+      grid-template-columns: 84px calc(100% - 84px);
+      align-content: center;
+
+      background: var(--Primary-Primary-10, #d5e5fc);
+      padding: 16px;
+
+      h6 {
+        margin: 0;
+        color: var(--Dark-Text, #0d1821);
+
+        /* Body S/Bold */
+        font-family: 'Space Grotesk';
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 140%; /* 16.8px */
+      }
+    }
+
+    .stores-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+
+      .store {
+        display: grid;
+        grid-template-columns: 84px calc(100% - 84px);
+        align-content: center;
+        height: 100%;
+        width: 100%;
+
+        .checkbox {
+          width: 84px;
+          display: grid;
+          place-items: center;
+          height: 100%;
+        }
+
+        .name {
+          padding: var(--16, 16px);
+        }
+      }
+
+      > * {
+        width: 100%;
+      }
+    }
+  }
+
+  .create_new {
+    gap: 5px;
+    align-items: center;
+
+    * {
+      // border: 2px solid red;
+
+      color: var(--Secondary-Button, #f45d01);
+
+      /* Body/Regular */
+      font-family: 'Space Grotesk';
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%; /* 22.4px */
+    }
+  }
+
+  .next_btn {
+    display: flex;
+    width: 300px;
+    padding: var(--12, 12px) var(--24, 24px);
+    justify-content: center;
+    align-items: center;
+    gap: var(--8, 8px);
+
+    border-radius: var(--8, 8px);
+    background: var(--primary-primary-main, #2d7dee);
+
+    color: var(--Light-Text, #d5e5fc);
+
+    /* Body/Regular */
+    font-family: 'Space Grotesk';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 22.4px */
+  }
+}

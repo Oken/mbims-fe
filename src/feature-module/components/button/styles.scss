@@ -1,0 +1,40 @@
+/* CustomButton.scss */
+$padding: 10px;
+$font-size: 16px;
+$border-radius: 8px;
+$border-width: 1px;
+$hover-bg-color: #f0f0f0;
+$hover-border-color: #0056b3;
+$disabled-bg-color: #e0e0e0;
+$disabled-border-color: #c0c0c0;
+
+.custom-button {
+  background-color: white; // Default background color
+  border: $border-width solid #007bff; // Default border color
+  color: #007bff; // Default text color
+  padding: $padding;
+  font-size: $font-size;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $hover-bg-color;
+    border-color: $hover-border-color;
+  }
+
+  &:disabled {
+    background-color: $disabled-bg-color;
+    border-color: $disabled-border-color;
+    cursor: not-allowed;
+    color: $disabled-border-color;
+  }
+}
+
+.search-button {
+  padding: $padding * .7 $padding + 15;
+}
+.add-button {
+  padding: $padding - 2 $padding;
+}
+

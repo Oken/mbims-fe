@@ -1167,7 +1167,7 @@ const AddStandardProduct = () => {
                           <CustomTagRenderProvider plainDelete={true}>
                             <Select
                               ref={supplierSelectRef}
-                              mode="tags"
+                              mode="multiple"
                               style={{ height: 56.5 }}
                               tagRender={TagRender}
                               placeholder="Select a suppliers"

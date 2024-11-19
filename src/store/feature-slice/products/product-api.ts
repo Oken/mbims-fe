@@ -52,14 +52,14 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { ExpiredProduct, Product, ProductCategory } from '../../../types/product-types';
-import fakeData from '../../../core/fake-db/fake_db.json';
+import { Product } from '../../../types/product-types';
+import fakeData from '/src/core/fake-db/fake_db.json';
 
 export interface StateT {
-  allData: Product[];
+  allData: any[];
   product: Product | null;
-  productCategories: ProductCategory[];
-  productCategory: ProductCategory | null;
+  productCategories: any[];
+  productCategory: any | null;
   expiredProducts: ExpiredProduct[];
 }
 

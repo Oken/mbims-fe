@@ -1,0 +1,677 @@
+{
+  "warranty_period": [
+    "month",
+    "year"
+  ],
+  "product_type": [
+    "single",
+    "variable"
+  ],
+  "invoice_status": [
+    "paid",
+    "unpaid"
+  ],
+  "return_status": [
+    "received",
+    "pending"
+  ],
+  "payment_status": [
+    "paid",
+    "unpaid"
+  ],
+  "show_header": false,
+  "plan": [
+    {
+      "plan_id": 1,
+      "plan_name": "Basic Plan",
+      "plan_description": "A basic plan with limited features.",
+      "price": 19.99
+    },
+    {
+      "plan_id": 2,
+      "plan_name": "Premium Plan",
+      "plan_description": "A premium plan with all features.",
+      "price": 49.99
+    }
+  ],
+  "product_category": [
+    {
+      "id": 1,
+      "categoryName": "Electronics",
+      "slug": "electronics",
+      "status": true
+    },
+    {
+      "id": 2,
+      "categoryName": "Books",
+      "slug": "books",
+      "status": true
+    }
+  ],
+  "brand": [
+    {
+      "id": 1,
+      "brand_name": "Brand A",
+      "logo": "logo-a.png",
+      "brand_status": true
+    },
+    {
+      "id": 2,
+      "brand_name": "Brand B",
+      "logo": "logo-b.png",
+      "brand_status": false
+    }
+  ],
+  "unit": [
+    {
+      "id": 1,
+      "unit_name": "Kilogram",
+      "short_name": "kg",
+      "unit_status": true
+    },
+    {
+      "id": 2,
+      "unit_name": "Liter",
+      "short_name": "l",
+      "unit_status": true
+    }
+  ],
+  "variant_attributes": [
+    {
+      "id": 1,
+      "variant_name": "Color",
+      "variant": "Red",
+      "variant_status": true
+    },
+    {
+      "id": 2,
+      "variant_name": "Size",
+      "variant": "Large",
+      "variant_status": true
+    }
+  ],
+  "warranty": [
+    {
+      "id": 1,
+      "warranty_name": "1 Year Warranty",
+      "duration": 1,
+      "warranty_description": "One-year limited warranty.",
+      "warranty_period": "year",
+      "warranty_status": true
+    },
+    {
+      "id": 2,
+      "warranty_name": "6 Months Warranty",
+      "duration": 6,
+      "warranty_description": "Six-month limited warranty.",
+      "warranty_period": "month",
+      "warranty_status": true
+    }
+  ],
+  "store": [
+    {
+      "id": 1,
+      "store_name": "Main Store",
+      "store_status": true
+    },
+    {
+      "id": 2,
+      "store_name": "Secondary Store",
+      "store_status": false
+    }
+  ],
+  "warehouse": [
+    {
+      "id": 1,
+      "warehouse_name": "Central Warehouse",
+      "contact_person": "John Doe",
+      "phone": "1234567890",
+      "work_phone": "0987654321",
+      "email": "central@warehouse.com",
+      "address1": "123 Main St",
+      "address2": "Suite 100",
+      "country": "USA",
+      "city": "New York",
+      "zip_code": "10001",
+      "warehouse_status": true
+    },
+    {
+      "id": 2,
+      "warehouse_name": "East Warehouse",
+      "contact_person": "Jane Smith",
+      "phone": "2345678901",
+      "work_phone": "1098765432",
+      "email": "east@warehouse.com",
+      "address1": "456 East St",
+      "address2": "Suite 200",
+      "country": "USA",
+      "city": "Boston",
+      "zip_code": "02110",
+      "warehouse_status": true
+    }
+  ],
+  "department": [
+    {
+      "id": 1,
+      "department_name": "Sales",
+      "hod": 1,
+      "department_description": "Handles all sales activities.",
+      "department_status": true
+    },
+    {
+      "id": 2,
+      "department_name": "HR",
+      "hod": 2,
+      "department_description": "Manages human resources.",
+      "department_status": true
+    }
+  ],
+  "shifts": [
+    {
+      "id": 1,
+      "shifts_from": "08:00:00",
+      "shifts_to": "16:00:00",
+      "week_off": true,
+      "weekdays_definition": "Mon-Fri",
+      "recurring_shift": true,
+      "shift_status": true
+    },
+    {
+      "id": 2,
+      "shifts_from": "16:00:00",
+      "shifts_to": "00:00:00",
+      "week_off": false,
+      "weekdays_definition": "Mon-Sat",
+      "recurring_shift": true,
+      "shift_status": true
+    }
+  ],
+  "designation": [
+    {
+      "id": 1,
+      "designation": "Manager",
+      "designation_status": true
+    },
+    {
+      "id": 2,
+      "designation": "Developer",
+      "designation_status": true
+    }
+  ],
+  "employee": [
+    {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "phone": "1234567890",
+      "emp_code": "EMP001",
+      "gender": "Male",
+      "nationality": "USA",
+      "joining_date": "2021-01-01",
+      "shift_id": 1,
+      "department_id": 1,
+      "designation_id": 1,
+      "blood_group": "O+",
+      "emergency_number_1": "0987654321",
+      "emergency_number_2": "1122334455",
+      "employee_address": "123 Main St",
+      "country": "USA",
+      "employee_state": "NY",
+      "city": "New York",
+      "zip_code": "10001"
+    },
+    {
+      "id": 2,
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "phone": "2345678901",
+      "emp_code": "EMP002",
+      "gender": "Female",
+      "nationality": "USA",
+      "joining_date": "2021-02-01",
+      "shift_id": 2,
+      "department_id": 2,
+      "designation_id": 2,
+      "blood_group": "A+",
+      "emergency_number_1": "1098765432",
+      "emergency_number_2": "2233445566",
+      "employee_address": "456 East St",
+      "country": "USA",
+      "employee_state": "MA",
+      "city": "Boston",
+      "zip_code": "02110"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "user_id": "USR001",
+      "user_name": "admin",
+      "phone": "1234567890",
+      "email": "admin@example.com"
+    },
+    {
+      "id": 2,
+      "user_id": "USR002",
+      "user_name": "jane_doe",
+      "phone": "2345678901",
+      "email": "jane.doe@example.com"
+    }
+  ],
+  "plan_feature": [
+    {
+      "plan_feature_id": 1,
+      "plan_id": 1,
+      "feature_name": "Feature A",
+      "feature_description": "Description of feature A."
+    },
+    {
+      "plan_feature_id": 2,
+      "plan_id": 2,
+      "feature_name": "Feature B",
+      "feature_description": "Description of feature B."
+    }
+  ],
+  "business": [
+    {
+      "business_id": 1,
+      "first_name": "Alice",
+      "last_name": "Johnson",
+      "business_name": "Alice's Shop",
+      "business_type": "Retail",
+      "email": "alice@example.com",
+      "phone_number": "3456789012",
+      "country": "USA",
+      "business_state": "CA",
+      "coupon_referral_code": "ALICE10",
+      "plan_id": 1
+    },
+    {
+      "business_id": 2,
+      "first_name": "Bob",
+      "last_name": "Brown",
+      "business_name": "Bob's Store",
+      "business_type": "Wholesale",
+      "email": "bob@example.com",
+      "phone_number": "4567890123",
+      "country": "USA",
+      "business_state": "TX",
+      "coupon_referral_code": "BOB20",
+      "plan_id": 2
+    }
+  ],
+  "sub_category": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "category_name": "Mobile Phones",
+      "cat_code": "MOB",
+      "sub_category_description": "Sub-category for mobile phones.",
+      "sub_category_status": true
+    },
+    {
+      "id": 2,
+      "category_id": 2,
+      "category_name": "Fiction",
+      "cat_code": "FIC",
+      "sub_category_description": "Sub-category for fiction books.",
+      "sub_category_status": true
+    }
+  ],
+  "product": [
+    {
+      "id": 1,
+      "productName": "Smartphone",
+      "sku": "SM001",
+      "sellingType": "Retail",
+      "barcode": "1234567890123",
+      "productDescription": "High-end smartphone.",
+      "composite": false,
+      "quantityOnHand": 100,
+      "sellingPrice": 699.99,
+      "costPrice": 0,
+      "quantityAlert": 5,
+      "type": "SINGLE",
+      "expiryDate": "2022-03-25",
+      "productCategoryId": 1,
+      "subCategoryId": 1,
+      "brandId": 1,
+      "unitId": 1,
+      "taxId": 0,
+      "componentProducts": [],
+      "tags": [],
+      "images": [],
+      "enabled": true,
+      "inventoryTracking": true,
+      "productImages": [],
+      "variants": [],
+      "supplierIds": [],
+      "storeIds": [
+        1
+      ],
+      "addToAllStores": false,
+      "discountId": 0
+    },
+    {
+      "id": 2,
+      "productName": "Novel",
+      "sku": "NV001",
+      "sellingType": "Wholesale",
+      "barcode": "2345678901234",
+      "productDescription": "Bestselling novel.",
+      "composite": false,
+      "quantityOnHand": 50,
+      "sellingPrice": 19.99,
+      "costPrice": 0,
+      "quantityAlert": 2,
+      "type": "SINGLE",
+      "expiryDate": "2022-03-25",
+      "productCategoryId": 2,
+      "subCategoryId": 2,
+      "brandId": 2,
+      "unitId": 2,
+      "taxId": 0,
+      "componentProducts": [],
+      "tags": [],
+      "images": [],
+      "enabled": false,
+      "inventoryTracking": true,
+      "productImages": [],
+      "variants": [],
+      "supplierIds": [],
+      "storeIds": [
+        2
+      ],
+      "addToAllStores": false,
+      "discountId": 0
+    }
+  ],
+  "expired_product": [
+    {
+      "id": 1,
+      "img": "assets/img/products/stock-img-01.png",
+      "productName": "Lenovo 3rd Generation",
+      "sku": "PT001",
+      "manufacturedDate": "19 Nov 2022",
+      "expiredDate": "02 Jan 2023"
+    },
+    {
+      "id": 2,
+      "img": "assets/img/products/stock-img-02.png",
+      "productName": "Nike Jordan",
+      "sku": "PT002",
+      "manufacturedDate": "24 Nov 2022",
+      "expiredDate": "23 Jan 2023"
+    }
+  ],
+  "image": [
+    {
+      "id": 1,
+      "product_id": 1,
+      "image_url": "image-smartphone.jpg",
+      "image_description": "Image of the smartphone."
+    },
+    {
+      "id": 2,
+      "product_id": 2,
+      "image_url": "image-novel.jpg",
+      "image_description": "Image of the novel."
+    }
+  ],
+  "stock": [
+    {
+      "id": 1,
+      "warehouse_id": 1,
+      "responsible_person": 1,
+      "product_id": 1,
+      "shop_id": 1,
+      "stock_date": "2023-01-01",
+      "quantity": 50
+    },
+    {
+      "id": 2,
+      "warehouse_id": 2,
+      "responsible_person": 2,
+      "product_id": 2,
+      "shop_id": 2,
+      "stock_date": "2023-02-01",
+      "quantity": 30
+    }
+  ],
+  "stock_adjustment": [
+    {
+      "id": 1,
+      "product_id": 1,
+      "warehouse_id": 1,
+      "reference_number": "REF001",
+      "responsible_person": 1,
+      "notes": "Adjusted for end-of-year inventory."
+    },
+    {
+      "id": 2,
+      "product_id": 2,
+      "warehouse_id": 2,
+      "reference_number": "REF002",
+      "responsible_person": 2,
+      "notes": "Adjusted for damaged goods."
+    }
+  ],
+  "stock_transfer": [
+    {
+      "id": 1,
+      "warehouse_from_id": 1,
+      "warehouse_to_id": 2,
+      "responsible_person": 1,
+      "product_id": 1,
+      "notes": "Transferred for seasonal demand."
+    },
+    {
+      "id": 2,
+      "warehouse_from_id": 2,
+      "warehouse_to_id": 1,
+      "responsible_person": 2,
+      "product_id": 2,
+      "notes": "Transferred for better storage."
+    }
+  ],
+  "supplier": [
+    {
+      "id": 1,
+      "supplier_name": "Supplier A",
+      "email": "supplierA@example.com",
+      "phone": "3456789012",
+      "avatar": "avatar-a.png",
+      "supplier_address": "123 Supplier St",
+      "city": "Supplier City",
+      "supplier_desc": "Leading supplier of electronics.",
+      "supplier_code": "SUPA",
+      "country": "USA",
+      "supplier_status": true
+    },
+    {
+      "id": 2,
+      "supplier_name": "Supplier B",
+      "email": "supplierB@example.com",
+      "phone": "4567890123",
+      "avatar": "avatar-b.png",
+      "supplier_address": "456 Supplier Ave",
+      "city": "Supplier Town",
+      "supplier_desc": "Leading supplier of books.",
+      "supplier_code": "SUPB",
+      "country": "USA",
+      "supplier_status": true
+    }
+  ],
+  "customer": [
+    {
+      "id": 1,
+      "customer_name": "Customer A",
+      "email": "customerA@example.com",
+      "phone": "5678901234",
+      "avatar": "avatar-a.png",
+      "customer_address": "123 Customer St",
+      "city": "Customer City",
+      "customer_description": "Frequent buyer of electronics.",
+      "customer_code": "CUSA",
+      "country": "USA",
+      "customer_status": true
+    },
+    {
+      "id": 2,
+      "customer_name": "Customer B",
+      "email": "customerB@example.com",
+      "phone": "6789012345",
+      "avatar": "avatar-b.png",
+      "customer_address": "456 Customer Ave",
+      "city": "Customer Town",
+      "customer_description": "Frequent buyer of books.",
+      "customer_code": "CUSB",
+      "country": "USA",
+      "customer_status": true
+    }
+  ],
+  "sale": [
+    {
+      "id": 1,
+      "customer_id": 1,
+      "sale_date": "2023-01-01",
+      "supplier_id": 1,
+      "order_tax": 15.00,
+      "discount": 5.00,
+      "shipping": 10.00,
+      "total_amount": 100.00
+    },
+    {
+      "id": 2,
+      "customer_id": 2,
+      "sale_date": "2023-02-01",
+      "supplier_id": 2,
+      "order_tax": 10.00,
+      "discount": 3.00,
+      "shipping": 5.00,
+      "total_amount": 50.00
+    }
+  ],
+  "invoice_report": [
+    {
+      "id": 1,
+      "invoice_no": "INV001",
+      "customer_id": 1,
+      "due_date": "2023-01-15",
+      "amount": 100.00,
+      "paid": 80.00,
+      "amount_due": 20.00,
+      "invoice_status": "unpaid"
+    },
+    {
+      "id": 2,
+      "invoice_no": "INV002",
+      "customer_id": 2,
+      "due_date": "2023-02-15",
+      "amount": 50.00,
+      "paid": 50.00,
+      "amount_due": 0.00,
+      "invoice_status": "paid"
+    }
+  ],
+  "sales_return": [
+    {
+      "id": 1,
+      "customer_name": "Customer A",
+      "return_date": "2023-01-10",
+      "reference_number": "RET001",
+      "product_id": 1,
+      "return_status": "received",
+      "payment_status": "paid"
+    },
+    {
+      "id": 2,
+      "customer_name": "Customer B",
+      "return_date": "2023-02-10",
+      "reference_number": "RET002",
+      "product_id": 2,
+      "return_status": "pending",
+      "payment_status": "unpaid"
+    }
+  ],
+  "quotation": [
+    {
+      "id": 1,
+      "customer_name": "Customer A",
+      "quotation_date": "2023-01-05",
+      "reference_number": "QUO001",
+      "product_id": 1,
+      "order_tax": 5.00,
+      "discount": 2.00,
+      "shipping": 3.00,
+      "quotation_status": true,
+      "quotation_description": "Quotation for Customer A"
+    },
+    {
+      "id": 2,
+      "customer_name": "Customer B",
+      "quotation_date": "2023-02-05",
+      "reference_number": "QUO002",
+      "product_id": 2,
+      "order_tax": 3.00,
+      "discount": 1.00,
+      "shipping": 2.00,
+      "quotation_status": true,
+      "quotation_description": "Quotation for Customer B"
+    }
+  ],
+  "pos": [
+    {
+      "id": 1,
+      "categories": 10,
+      "products": 100,
+      "order_list": 20,
+      "customer_id": 1,
+      "taxes": 15.00,
+      "payment_method": "Credit Card"
+    },
+    {
+      "id": 2,
+      "categories": 5,
+      "products": 50,
+      "order_list": 10,
+      "customer_id": 2,
+      "taxes": 10.00,
+      "payment_method": "Cash"
+    }
+  ],
+  "expense_category": [
+    {
+      "id": 1,
+      "category_name": "Office Supplies",
+      "category_description": "Expenses for office supplies."
+    },
+    {
+      "id": 2,
+      "category_name": "Travel",
+      "category_description": "Expenses for business travel."
+    }
+  ],
+  "expenses": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "expenses_date": "2023-01-01",
+      "amount": 100.00,
+      "expense_reference": "EXP001",
+      "expense_for": "Stationery",
+      "expense_description": "Purchase of office supplies.",
+      "expense_status": true
+    },
+    {
+      "id": 2,
+      "category_id": 2,
+      "expenses_date": "2023-02-01",
+      "amount": 200.00,
+      "expense_reference": "EXP002",
+      "expense_for": "Flight tickets",
+      "expense_description": "Business travel expenses.",
+      "expense_status": true
+    }
+  ]
+}

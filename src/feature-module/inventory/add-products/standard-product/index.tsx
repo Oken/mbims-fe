@@ -657,6 +657,7 @@ const AddStandardProduct = () => {
 
   // Update the supplier list after creating a new category
   const searchSupplier = (searchTerm: string) => {
+    console.log('searchSupplier suppliers: ', suppliers);
     const filtered = suppliers.filter(
       option => option.name.toLowerCase().startsWith(searchTerm.toLowerCase())
     )

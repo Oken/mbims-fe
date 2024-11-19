@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import fakeData from '../../../core/fake-db/fake_db.json';
+import fakeData from '../../core/fake-db/fake_db.json';
 
 export interface StateT {
   showHeader: boolean;

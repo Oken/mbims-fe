@@ -106,6 +106,7 @@ type AddDiscountT = Omit<DiscountT, 'id'>;
 type AddTaxT = Omit<TaxesT, 'id'>;
 type AddVariantAttributeT = Omit<VariantAttributeT, 'id'>;
 type AddSupplierT = Omit<SupplierT, 'id'>;
+type AddBrandT = Omit<ProductBrandT, 'id'>;
 
 const initialProductState = productAdapter.getInitialState();
 const initialCategoryState = productCategoryAdapter.getInitialState();
@@ -195,6 +196,22 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
       }),
       invalidatesTags: ['productCategory'],
     }),
+    editProductCategory: builder.mutation({
+      query: (productCategory) => ({
+        url: `/product-categories/${productCategory.id}`, // Hypothetical endpoint
+        method: 'PUT',
+        body: productCategory,
+      }),
+      invalidatesTags: ['productCategory'],
+    }),
+    deleteProductCategory: builder.mutation({
+      query: (productCategoryId) => ({
+        url: `/product-categories/${productCategoryId}`, // Hypothetical endpoint
+        method: 'DELETE',
+        body: productCategoryId,
+      }),
+      invalidatesTags: ['productCategory'],
+    }),
 
     // Product Subcategories
     getProductSubcategories: builder.query({
@@ -216,6 +233,22 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
       }),
       invalidatesTags: ['subcategory'],
     }),
+    editProductSubcategory: builder.mutation({
+      query: (productSubcategory) => ({
+        url: `/sub-categories/${productSubcategory.id}`, // Hypothetical endpoint
+        method: 'PUT',
+        body: productSubcategory,
+      }),
+      invalidatesTags: ['subcategory'],
+    }),
+    deleteProductSubcategory: builder.mutation({
+      query: (productSubcategoryid) => ({
+        url: `/sub-categories/${productSubcategoryid}`, // Hypothetical endpoint
+        method: 'DELETE',
+        body: productSubcategoryid,
+      }),
+      invalidatesTags: ['subcategory'],
+    }),
 
     // Product Brands
     getProductBrands: builder.query({
@@ -224,7 +257,34 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
         console.log('initialBrandState: ', initialBrandState, responseData);
         return productBrandAdapter.setAll(initialBrandState, responseData);
       },
-      providesTags: ['productCategory'],
+      providesTags: ['brand'],
+    }),
+    addNewBrand: builder.mutation({
+      query: (initialPost: AddBrandT) => ({
+        url: '/brands',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: initialPost,
+      }),
+      invalidatesTags: ['brand'],
+    }),
+    editBrand: builder.mutation({
+      query: (brand) => ({
+        url: `/brands/${brand.id}`, // Hypothetical endpoint
+        method: 'PUT',
+        body: brand,
+      }),
+      invalidatesTags: ['brand'],
+    }),
+    deleteBrand: builder.mutation({
+      query: (brandId) => ({
+        url: `/brands/${brandId}`, // Hypothetical endpoint
+        method: 'DELETE',
+        body: brandId,
+      }),
+      invalidatesTags: ['brand'],
     }),
 
     // Product Discount
@@ -244,6 +304,22 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
         },
         method: 'POST',
         body: initialPost,
+      }),
+      invalidatesTags: ['discount'],
+    }),
+    editProductDiscount: builder.mutation({
+      query: (discount) => ({
+        url: `/discounts/${discount.id}`, // Hypothetical endpoint
+        method: 'PUT',
+        body: discount,
+      }),
+      invalidatesTags: ['discount'],
+    }),
+    deleteProductDiscount: builder.mutation({
+      query: (discountId) => ({
+        url: `/discounts/${discountId}`, // Hypothetical endpoint
+        method: 'DELETE',
+        body: discountId,
       }),
       invalidatesTags: ['discount'],
     }),
@@ -268,6 +344,22 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
       }),
       invalidatesTags: ['store'],
     }),
+    editStore: builder.mutation({
+      query: (store) => ({
+        url: `/stores/${store.id}`, // Hypothetical endpoint
+        method: 'PUT',
+        body: store,
+      }),
+      invalidatesTags: ['store'],
+    }),
+    deleteStore: builder.mutation({
+      query: (storeId) => ({
+        url: `/stores/${storeId}`, // Hypothetical endpoint
+        method: 'DELETE',
+        body: storeId,
+      }),
+      invalidatesTags: ['store'],
+    }),
 
     // Outlets
     getOutlets: builder.query({
@@ -286,6 +378,22 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
         },
         method: 'POST',
         body: initialPost,
+      }),
+      invalidatesTags: ['outlet'],
+    }),
+    editOutlet: builder.mutation({
+      query: (outlet) => ({
+        url: `/outlets/${outlet.id}`, // Hypothetical endpoint
+        method: 'PUT',
+        body: outlet,
+      }),
+      invalidatesTags: ['outlet'],
+    }),
+    deleteOutlet: builder.mutation({
+      query: (outletId) => ({
+        url: `/outlets/${outletId}`, // Hypothetical endpoint
+        method: 'DELETE',
+        body: outletId,
       }),
       invalidatesTags: ['outlet'],
     }),
@@ -310,6 +418,22 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
       }),
       invalidatesTags: ['supplier'],
     }),
+    editProductSupplier: builder.mutation({
+      query: (supplier) => ({
+        url: `/suppliers/${supplier.id}`, // Hypothetical endpoint
+        method: 'PUT',
+        body: supplier,
+      }),
+      invalidatesTags: ['supplier'],
+    }),
+    deleteProductSupplier: builder.mutation({
+      query: (supplierId) => ({
+        url: `/suppliers/${supplierId}`, // Hypothetical endpoint
+        method: 'DELETE',
+        body: supplierId,
+      }),
+      invalidatesTags: ['supplier'],
+    }),
 
     // Taxes
     getTaxes: builder.query({
@@ -328,6 +452,22 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
         },
         method: 'POST',
         body: initialPost,
+      }),
+      invalidatesTags: ['tax'],
+    }),
+    editTax: builder.mutation({
+      query: (tax) => ({
+        url: `/taxes/${tax.id}`, // Hypothetical endpoint
+        method: 'PUT',
+        body: tax,
+      }),
+      invalidatesTags: ['supplier'],
+    }),
+    deleteTax: builder.mutation({
+      query: (taxId) => ({
+        url: `/taxes/${taxId}`, // Hypothetical endpoint
+        method: 'DELETE',
+        body: taxId,
       }),
       invalidatesTags: ['tax'],
     }),
@@ -402,14 +542,36 @@ export const {
   useAddNewProductMutation,
   useEditProductMutation,
   useDeleteProductMutation,
+
   useAddNewProductCategoryMutation,
+  useEditProductCategoryMutation,
+  useDeleteProductCategoryMutation,
+
   useAddNewProductSubcategoryMutation,
+  useEditProductSubcategoryMutation,
+  useDeleteProductSubcategoryMutation,
+
   useAddNewStoreMutation,
+  useEditStoreMutation,
+  useDeleteStoreMutation,
+
   useAddNewOutletMutation,
+  useEditOutletMutation,
+  useDeleteOutletMutation,
+
   useAddNewProductDiscountMutation,
+  useEditProductDiscountMutation,
+  useDeleteProductDiscountMutation,
+
   useAddNewTaxMutation,
+  useEditTaxMutation,
+  useDeleteTaxMutation,
+
   useAddNewVariantAttributeMutation,
+
   useAddNewProductSupplierMutation,
+  useEditProductSupplierMutation,
+  useDeleteProductSupplierMutation,
 } = productExtendsmainAPISlice;
 
 const selectProducts = productExtendsmainAPISlice.endpoints.getProducts.select([]);

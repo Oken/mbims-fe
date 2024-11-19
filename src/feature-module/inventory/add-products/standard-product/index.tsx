@@ -201,6 +201,8 @@ const AddStandardProduct = () => {
   const [brandItems, setBrandItems] = useState<ProductBrandT[]>([]);
   const [units, setUnits] = useState<UnitType[]>([]);
   const [suppliers, setSuppliers] = useState<SupplierT[]>([]);
+  const [supplierId, setSupplierId] = useState<number>(0);
+  const [selectedSuppliers, setSelectedSuppliers] = useState<any[]>([]);
 
   // Categories, Brands, Suppliers, Discounts, and Taxes
   const [categoryItems, setCategoryItems] = useState<ProductCategoryT[]>([]);
@@ -234,7 +236,6 @@ const AddStandardProduct = () => {
   const [costPrice, setCostPrice] = useState<number>(0);
 
   const [productCategoryId, setProductCategoryId] = useState<number>(0);
-  const [supplierId, setSupplierId] = useState<number>(0);
   const [brandId, setBrandId] = useState<number | null>(null);
   const [selectedUnitId, setSelectedUnitId] = useState<number | null>(null);
   const [selectTaxId, setSelectedTaxId] = useState<number | null>(null);
@@ -1170,11 +1171,15 @@ const AddStandardProduct = () => {
                               ref={supplierSelectRef}
                               mode="multiple"
                               style={{ height: 56.5 }}
+                              // value={selectedSuppliers}
                               tagRender={TagRender}
                               placeholder="Select a suppliers"
                               transitionName=""
                               dropdownStyle={{ animation: 'none !important' }}
-                              onChange={(value) => setSupplierId(value)}
+                              // onChange={(value) => setSelectedSuppliers([
+                              //   ...selectedSuppliers,
+                              //   value,
+                              // ])}
                               optionFilterProp="label"
                               onSelect={handleSupplierBlur}
                               options={filteredSupplierList}

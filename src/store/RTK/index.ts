@@ -20,6 +20,7 @@ export const mainAPISlice = createApi({
     'variantAttribute',
     'outlet',
     'supplier',
+    'brand',
   ],
   endpoints: (builder) => ({
     fetchData: builder.query({

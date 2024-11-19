@@ -66,6 +66,7 @@ import {
 
 import SelectOutlet from '../../../components/button/forms/select-outlet.tsx';
 import AddCategoryForm from '../../../components/button/forms/add-category';
+import AddSupplierForm from '../../../components/button/forms/add-supplier';
 import AddDiscountForm from '../../../components/button/forms/add-discount';
 import AddTaxForm from '../../../components/button/forms/add-tax';
 
@@ -158,6 +159,7 @@ const AddStandardProduct = () => {
 
   const categorySelectRef = useRef<RefSelectProps>(null);
   const outletSelectRef = useRef<RefSelectProps>(null);
+  const supplierSelectRef = useRef<RefSelectProps>(null);
 
   const handleCategoryBlur = () => {
     if (categorySelectRef.current) {
@@ -173,9 +175,17 @@ const AddStandardProduct = () => {
     }
   }
 
+  const handleSupplierBlur = () => {
+    if (supplierSelectRef.current) {
+      supplierSelectRef.current.blur();
+      supplierSelectRef.current.focus();
+    }
+  }
+
   // Modal References
   const selectOutletModalRef = useRef<CustomModalRef>(null);
   const categoryModalRef = useRef<CustomModalRef>(null);
+  const supplierModalRef = useRef<CustomModalRef>(null);
   const discountModalRef = useRef<CustomModalRef>(null);
   const taxModalRef = useRef<CustomModalRef>(null);
 
@@ -195,12 +205,19 @@ const AddStandardProduct = () => {
   // Categories, Brands, Suppliers, Discounts, and Taxes
   const [categoryItems, setCategoryItems] = useState<ProductCategoryT[]>([]);
   const [createdNewCategory, setCreatedNewCategory] = useState<boolean>(false);
+  const [createdNewSupplier, setCreatedNewSupplier] = useState<boolean>(false);
   const [categorySearchTerm, setCategorySearchTerm] = useState('');
+  const [supplierSearchTerm, setSupplierSearchTerm] = useState('');
   const [
     filteredCategoryList,
     setFilteredCategoryList
   ] = useState<SelectOptionT[]>([]);
+  const [
+    filteredSupplierList,
+    setFilteredSupplierList
+  ] = useState<SelectOptionT[]>([]);
   const [isCategorySelectOpen, setIsCategorySelectOpen] = useState(false);
+  const [isSupplierSelectOpen, setIsSupplierSelectOpen] = useState(false);
   const [isOutletSelectOpen, setIsOutletSelectOpen] = useState(false);
   const [discounts, setDiscounts] = useState<DiscountT[]>([]);
   const [taxes, setTaxes] = useState<TaxesT[]>([]);
@@ -217,6 +234,7 @@ const AddStandardProduct = () => {
   const [costPrice, setCostPrice] = useState<number>(0);
 
   const [productCategoryId, setProductCategoryId] = useState<number>(0);
+  const [supplierId, setSupplierId] = useState<number>(0);
   const [brandId, setBrandId] = useState<number | null>(null);
   const [selectedUnitId, setSelectedUnitId] = useState<number | null>(null);
   const [selectTaxId, setSelectedTaxId] = useState<number | null>(null);
@@ -479,12 +497,30 @@ const AddStandardProduct = () => {
     searchCategory(val);
   }
 
+  const handleSupplierSearch = (e: any) => {
+    const event = e.target as HTMLInputElement
+    const val = event.value;
+    setSupplierSearchTerm(event.value);
+
+    if (val == '') return;
+
+    searchSupplier(val);
+  }
+
   const openCategoryModal = () => {
     categoryModalRef.current?.openModal();
   };
 
   const closeCategoryModal = () => {
     categoryModalRef.current?.closeModal();
+  };
+
+  const openSupplierModal = () => {
+    supplierModalRef.current?.openModal();
+  };
+
+  const closeSupplierModal = () => {
+    supplierModalRef.current?.closeModal();
   };
 
   // Add discount
@@ -613,6 +649,44 @@ const AddStandardProduct = () => {
   ]);
 
   const {
+    isError: isProductSupplierFetchingError,
+    isSuccess: isProductSupplierFetchingSuccess,
+    isLoading: isProductSupplierFetching,
+  } = useGetProductSuppliersQuery([]);
+  const fetchedProductSuppliers = useSelector(selectAllSuppliers);
+
+  // Update the supplier list after creating a new category
+  const searchSupplier = (searchTerm: string) => {
+    const filtered = suppliers.filter(
+      option => option.name.toLowerCase().startsWith(searchTerm.toLowerCase())
+    )
+
+    const filteredSupplierList = filtered.map((item: SupplierT) => ({
+      value: item.id,
+      label: item.name,
+    }));
+
+    setFilteredSupplierList(filteredSupplierList);
+  }
+
+  // Update the supplier list after creating a new category
+  useEffect(() => {
+
+    console.log('productSKU: ', productSKU, '\nbarcode: ', barcode);
+    console.log('categoryItems after refetch: ', categoryItems, fetchedProductCategories);
+    setCategoryItems(fetchedProductCategories);
+
+    if (createdNewCategory) {
+      setIsSupplierSelectOpen((prev) => !prev);
+      searchSupplier(supplierSearchTerm);
+    }
+  }, [
+    fetchedProductSuppliers,
+    suppliers,
+    createdNewCategory,
+  ]);
+
+  const {
     isError: isProductBrandFetchingError,
     isSuccess: isProductBrandFetchingSuccess,
     isLoading: isProductBrandFetching,
@@ -639,13 +713,6 @@ const AddStandardProduct = () => {
     isLoading: isOutletFetching,
   } = useGetOutletsQuery([]);
   const fetchedOutlets = useSelector(selectAllOutlets);
-
-  const {
-    isError: isProductSupplierFetchingError,
-    isSuccess: isProductSupplierFetchingSuccess,
-    isLoading: isProductSupplierFetching,
-  } = useGetProductSuppliersQuery([]);
-  const fetchedProductSuppliers = useSelector(selectAllSuppliers);
 
   const {
     isError: isTaxFetchingError,
@@ -759,6 +826,14 @@ const AddStandardProduct = () => {
     handleCategoryBlur();
   };
 
+  const addNewSupplier = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsSupplierSelectOpen(false);
+    setCreatedNewSupplier(false);
+    openSupplierModal();
+    handleSupplierBlur();
+  };
+
   const addNewDiscount = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     openDiscountModal();
@@ -810,6 +885,17 @@ const AddStandardProduct = () => {
           setCreatedNewCategory={setCreatedNewCategory}
           />}
       />
+
+      <CustomModal
+        ref={supplierModalRef}
+        width={'800px'}
+        content={<AddSupplierForm
+          closeSupplierModal={closeSupplierModal}
+          supplierName={supplierSearchTerm}
+          setCreatedNewSupplier={setCreatedNewSupplier}
+        />}
+      />
+
       <div className="page-wrapper" style={{ background: '#F6F9FE', height: '100%' }}>
         <div className="content" style={{ paddingBottom: '20px' }}>
           <Form
@@ -902,6 +988,10 @@ const AddStandardProduct = () => {
                         <FormItem
                           name="sku"
                           noStyle
+                          rules={[{
+                            required: true,
+                            message: 'SKU is required'
+                          }]}
                         >
                           <Input
                             type="text"
@@ -1072,18 +1162,58 @@ const AddStandardProduct = () => {
                     <Col xs={24} md={12}>
                       <FormItem>
                         <label style={{ padding: '5px 0 10px 20px' }}>Suppliers</label>
-                        <FormItem noStyle name={'supplierId'}>
-                          <Select
-                            placeholder="Select a suppliers"
-                            style={{ height: 56.5 }}
-                            onChange={(value) => setSelectedSupplierId(value)}
-                          >
-                            {suppliers.map((supplier: SupplierT) => (
-                              <Option key={supplier.id} value={supplier.id} style={{ padding: '10px' }}>
-                                {supplier.name}
-                              </Option>
-                            ))}
-                          </Select>
+                        <FormItem name={`supplierId`} noStyle>
+                          {/* A Context Provider for controlling tag delete icon */}
+                          <CustomTagRenderProvider plainDelete={true}>
+                            <Select
+                              ref={supplierSelectRef}
+                              mode="tags"
+                              style={{ height: 56.5 }}
+                              tagRender={TagRender}
+                              placeholder="Select a suppliers"
+                              transitionName=""
+                              dropdownStyle={{ animation: 'none !important' }}
+                              onChange={(value) => setSupplierId(value)}
+                              optionFilterProp="label"
+                              onSelect={handleSupplierBlur}
+                              options={filteredSupplierList}
+                              open={isSupplierSelectOpen}
+                              onDropdownVisibleChange={(open) => setIsSupplierSelectOpen(open)}
+                              dropdownRender={(menu) => (
+                                <div style={{ padding: '5px' }}>
+                                  <Input
+                                    type="text"
+                                    placeholder="Search"
+                                    style={{ padding: '10px' }}
+                                    value={supplierSearchTerm}
+                                    onInput={handleSupplierSearch}
+                                  />
+                                  {menu}
+                                  {supplierSearchTerm ? (
+                                    <Button
+                                      type="text"
+                                      icon={<PlusOutlined />}
+                                      style={{ color: '#2D7DEE', margin: '10px 0' }}
+                                      onClick={addNewSupplier}
+                                    >
+                                      Add "{supplierSearchTerm}" as new supplier
+                                    </Button>
+                                  ) : ("")}
+                                </div>
+                              )}
+                              notFoundContent={
+                                supplierSearchTerm ? (
+                                  <div style={{ textAlign: 'center', margin: '5px' }} >
+                                    <div>No results match "{supplierSearchTerm}"</div>
+                                  </div>
+                                ) : (
+                                  <div style={{ textAlign: 'center', margin: '5px' }} >
+                                    <div>No data</div>
+                                  </div>
+                                )
+                              }
+                            />
+                          </CustomTagRenderProvider>
                         </FormItem>
                       </FormItem>
                     </Col>

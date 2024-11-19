@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useState, Fragment } from 'react';
 import { OverlayTrigger, Tooltip, TooltipProps } from 'react-bootstrap';
 import ImageWithBasePath from '../../core/img/imagewithbasebath';
 import { Link } from 'react-router-dom';
@@ -88,6 +88,13 @@ const CategoryList = () => {
     {
       title: 'name',
       dataIndex: 'name',
+      render: (_, category, index) => (
+        <Fragment key={index}>
+          <span className="productimgname">
+            {category.productCategoryName}
+          </span>
+        </Fragment>
+      ),
       // sorter: (a, b) => a.category.length - b.category.length,
     },
     // {
@@ -98,6 +105,12 @@ const CategoryList = () => {
     {
       title: 'Date Created',
       dataIndex: 'date-created',
+      render: (_, category, index) => (
+        <Fragment key={index}>
+          <span className="productimgname">
+          </span>
+        </Fragment>
+      ),
       // sorter: (a, b) => a.createdon.length - b.createdon.length,
     },
     // {
@@ -167,7 +180,7 @@ const CategoryList = () => {
               </div>
             </div>
             <div>
-              <div className="page-btn import">
+              {/* <div className="page-btn import">
                 <CustomButton backgroundColor="white" textColor="#2D7DEE" className="search-button">
                   <Download className="me-2" />
                   Import
@@ -180,7 +193,7 @@ const CategoryList = () => {
                     Add New Product
                   </CustomButton>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* /product list */}

@@ -130,12 +130,17 @@ const AddOutlet = ({ closeModal }: AddOutletProps) => {
       }}>
         <Row gutter={40}>
           <Col span={24}>
-            <FormItem
-              name="storeName"
-              label="Outlet Name"
-              rules={[{ required: true, message: 'Store name is required' }]}
-            >
-              <Input placeholder="Enter outlet name" style={{ padding: '16px' }} />
+            <FormItem>
+              <label style={{ paddingBottom: '8px' }}>
+                Outlet Name <span style={{ color: 'red' }}>*</span>
+              </label>
+              <FormItem
+                name="outletName"
+                noStyle
+                rules={[{ required: true, message: 'Outlet Name is required' }]}
+              >
+                <Input placeholder="Enter outlet name" style={{ padding: '16px' }} />
+              </FormItem>
             </FormItem>
           </Col>
         </Row>
@@ -170,33 +175,51 @@ const AddOutlet = ({ closeModal }: AddOutletProps) => {
           </Col>
 
           <Col span={12}>
-            <FormItem name="state" label="Select State" rules={[{ required: true, message: 'State is required' }]}>
-              <Select placeholder="Select state" style={{ height: 56.5 }}>
-                {states.map((state) => (
-                  <Option key={state.id} value={state.stateName}>
-                    {state.stateName}
-                  </Option>
-                ))}
-              </Select>
+            <FormItem>
+              <label style={{ paddingBottom: '8px' }}>
+                Select State <span style={{ color: 'red' }}>*</span>
+              </label>
+              <FormItem
+                name="state"
+                rules={[{ required: true, message: 'State is required' }]}
+                noStyle
+                >
+                <Select placeholder="Select state" style={{ height: 56.5 }}>
+                  {states.map((state) => (
+                    <Option key={state.id} value={state.stateName}>
+                      {state.stateName}
+                    </Option>
+                  ))}
+                </Select>
+              </FormItem>
             </FormItem>
           </Col>
         </Row>
 
         <Row gutter={40}>
           <Col span={12}>
-            <FormItem
-              name="zipCode"
-              label="Postal Code"
-              rules={[{ required: true, message: 'Postal code is required' }]}
-            >
-              <Input placeholder="Enter postal code" style={{ padding: '16px' }} />
+            <FormItem>
+              <label style={{ paddingBottom: '8px' }}>
+                Postal Code <span style={{ color: 'red' }}>*</span>
+              </label>
+              <FormItem
+                name="zipCode"
+                noStyle
+                rules={[{ required: true, message: 'Postal code is required' }]}
+              >
+                <Input placeholder="Enter postal code" style={{ padding: '16px' }} />
+              </FormItem>
             </FormItem>
           </Col>
 
           <Col span={12}>
+          <FormItem>
+            <label style={{ paddingBottom: '8px' }}>
+              Country <span style={{ color: 'red' }}>*</span>
+            </label>
             <FormItem
               name="country"
-              label="Country"
+              noStyle
               rules={[{ required: true, message: 'Country is required'
             }]}>
               <Select placeholder="Select country" style={{ height: 56.5  }}>
@@ -207,6 +230,7 @@ const AddOutlet = ({ closeModal }: AddOutletProps) => {
                 ))}
               </Select>
             </FormItem>
+          </FormItem>
           </Col>
         </Row>
 

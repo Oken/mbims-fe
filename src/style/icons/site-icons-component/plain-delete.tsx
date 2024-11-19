@@ -9,7 +9,7 @@ const PlainDelete = ({ style, onClick } : PlainDeletePropT) => (
   <svg
     width={style?.fontSize}
     height={style?.fontSize}
-    viewBox="0 0 12 16"
+    viewBox="0 0 12 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{ ...style, verticalAlign: 'text-top', cursor: 'pointer' }}

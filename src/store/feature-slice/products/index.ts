@@ -105,6 +105,7 @@ type AddOutletT = Omit<OutletT, 'id'>;
 type AddDiscountT = Omit<DiscountT, 'id'>;
 type AddTaxT = Omit<TaxesT, 'id'>;
 type AddVariantAttributeT = Omit<VariantAttributeT, 'id'>;
+type AddSupplierT = Omit<SupplierT, 'id'>;
 
 const initialProductState = productAdapter.getInitialState();
 const initialCategoryState = productCategoryAdapter.getInitialState();
@@ -296,6 +297,18 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
         console.log('initialSupplierState: ', initialSupplierState, responseData);
         return productSupplierAdapter.setAll(initialSupplierState, responseData);
       },
+      providesTags: ['supplier'],
+    }),
+    addNewProductSupplier: builder.mutation({
+      query: (initialPost: AddSupplierT) => ({
+        url: '/suppliers',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: initialPost,
+      }),
+      invalidatesTags: ['supplier'],
     }),
 
     // Taxes
@@ -396,6 +409,7 @@ export const {
   useAddNewProductDiscountMutation,
   useAddNewTaxMutation,
   useAddNewVariantAttributeMutation,
+  useAddNewProductSupplierMutation,
 } = productExtendsmainAPISlice;
 
 const selectProducts = productExtendsmainAPISlice.endpoints.getProducts.select([]);

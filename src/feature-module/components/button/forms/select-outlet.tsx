@@ -5,7 +5,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
 import CustomModal, { CustomModalRef } from '../../../../custom-modal';
 import AddOutlet from './add-outlet';
-import { StoreT, CustomStoreFormDataT } from '../../../../types/product-types';
+import { StoreT, CustomStoreFormDataT, OutletT } from '../../../../types/product-types';
 import {
   // Queries
   useGetOutletsQuery,
@@ -14,8 +14,8 @@ import {
   selectAllOutlets,
 } from '../../../../store/feature-slice/products';
 
-interface StoreDataT extends StoreT {
-  id: number;
+interface OutletDataT extends OutletT {
+  // id: number;
   price?: string;
   key?: number | string;
 }
@@ -69,13 +69,13 @@ const SelectOutlet = ({
     modalRef.current?.closeModal();
   };
 
-  const columns: ColumnsType<StoreDataT> = [
+  const columns: ColumnsType<OutletDataT> = [
     {
       title: 'Outlet',
       dataIndex: 'outlet',
-      render: (_: string, record: StoreDataT, index) => (
+      render: (_: string, record: OutletDataT, index) => (
         <>
-          <a>{record.storeName}</a>
+          <a>{record.outletName}</a>
           <FormItem
             name={['outlets', index, 'outletId']}
             noStyle
@@ -91,7 +91,7 @@ const SelectOutlet = ({
             name={['outlets', index, 'outletName']}
             noStyle
             hidden
-            initialValue={record.storeName}
+            initialValue={record.outletName}
           >
             <Input
               type="text"
@@ -105,7 +105,7 @@ const SelectOutlet = ({
     {
       title: 'In Stock',
       dataIndex: 'inStock',
-      render: (_: string, record: StoreDataT, index) => (
+      render: (_: string, record: OutletDataT, index) => (
         <>
           <FormItem
             name={['outlets', index, 'inStock']}
@@ -123,7 +123,7 @@ const SelectOutlet = ({
     {
       title: 'Low Stock Alert',
       dataIndex: 'lowStockAlert',
-      render: (_: string, record: StoreDataT, index) => (
+      render: (_: string, record: OutletDataT, index) => (
         <>
           <FormItem
             name={['outlets', index, 'lowStockAlert']}
@@ -141,7 +141,7 @@ const SelectOutlet = ({
     {
       title: 'Price',
       dataIndex: 'price',
-      render: (_: string, record: StoreDataT, index) => (
+      render: (_: string, record: OutletDataT, index) => (
         <>
           <FormItem
             name={['outlets', index, 'price']}
@@ -184,8 +184,8 @@ const SelectOutlet = ({
         setLocalOutletsIds(selectedRowKeys as number[]);
       }
     },
-    getCheckboxProps: (record: StoreDataT) => ({
-      name: record.storeName,
+    getCheckboxProps: (record: OutletDataT) => ({
+      name: record.outletName,
     }),
   };
 
@@ -202,7 +202,7 @@ const SelectOutlet = ({
     const loadStores = async () => {
       try {
         if (isOutletFetchingSuccess) {
-          const updatedOutlets = fetchedStores.map((outlet: any) => ({
+          const updatedOutlets = fetchedOutlets.map((outlet: any) => ({
             ...outlet,
             key: outlet.id,
           }));

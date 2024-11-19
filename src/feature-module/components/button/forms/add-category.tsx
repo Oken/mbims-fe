@@ -37,7 +37,7 @@ const AddCategoryForm = ({ closeCategoryModal, categoryName, setCreatedNewCatego
 
   console.log('\nproductCategoryName: ', productCategoryName, '\ncategoryName: ', categoryName);
 
-  const [addNewCategory, { isLoading, isSuccess, isError, error }] = useAddNewProductCategoryMutation();
+  const [addNewProductCategory, { isLoading, isSuccess, isError, error }] = useAddNewProductCategoryMutation();
 
   const handleFinish = async (values: any) => {
     // Handle form submission
@@ -50,7 +50,7 @@ const AddCategoryForm = ({ closeCategoryModal, categoryName, setCreatedNewCatego
 
       console.log('category to be submitted: ', category);
       // setLoading(isLoading);
-      const resCategory = await addNewCategory(category).unwrap();
+      const resCategory = await addNewProductCategory(category).unwrap();
       console.log('resCategory: ', resCategory);
     } catch (err) {
       message.error('Failed to add category');

@@ -200,7 +200,7 @@ export type SupplierT = {
   city: string;
   country: string;
   description: string;
-  imageUrl: string;
+  imageUrl: string | null;
 };
 
 export type TaxesT = { id: number; name: string; rate: number };

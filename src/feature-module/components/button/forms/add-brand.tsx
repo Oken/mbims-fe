@@ -8,7 +8,7 @@ import {
 } from 'antd';
 import {
   // mutations
-  useAddNewProductCategoryMutation,
+  useAddNewBrandMutation,
 } from '../../../../store/feature-slice/products';
 interface Category {
   productCategoryName: string;
@@ -17,58 +17,58 @@ interface Category {
 }
 
 interface AddCategoryProps {
-  closeAddCategoryModal: () => void;
-  categoryName: string;
-  setCreatedNewCategory: (value: boolean) => void;
+  closeAddBrandModal: () => void;
+  brandName: string;
+  setCreatedNewBrand: (value: boolean) => void;
 }
 
-const AddCategoryForm = ({ closeAddCategoryModal, categoryName, setCreatedNewCategory }: AddCategoryProps) => {
+const AddCategoryForm = ({ closeAddBrandModal, brandName, setCreatedNewBrand }: AddCategoryProps) => {
   const [form] = Form.useForm();
-  const [productCategoryName, setProductCategoryName] = useState(categoryName);
+  const [productBrandName, setProductBrandName] = useState(brandName);
 
   // Update the form input when the category name changes
   useEffect(() => {
-    setProductCategoryName(categoryName);
-  }, [categoryName]);
+    setProductBrandName(brandName);
+  }, [brandName]);
 
   useEffect(() => {
-    form.setFieldsValue({ productCategoryName: productCategoryName });
-  }, [productCategoryName]);
+    form.setFieldsValue({ productBrandName: productBrandName });
+  }, [productBrandName]);
 
-  console.log('\nproductCategoryName: ', productCategoryName, '\ncategoryName: ', categoryName);
+  console.log('\nproductBrandName: ', productBrandName, '\nbrandName: ', brandName);
 
-  const [addNewProductCategory, { isLoading, isSuccess, isError, error }] = useAddNewProductCategoryMutation();
+  const [addNewProductCategory, { isLoading, isSuccess, isError, error }] = useAddNewBrandMutation();
 
   const handleFinish = async (values: any) => {
     // Handle form submission
-    try {
-      const category = {
-        productCategoryName: values.productCategoryName,
-        slug: values.productCategoryName,
-        categoryStatus: true,
-      }
+    // try {
+    //   const category = {
+    //     productCategoryName: values.productCategoryName,
+    //     slug: values.productCategoryName,
+    //     categoryStatus: true,
+    //   }
 
-      console.log('category to be submitted: ', category);
-      // setLoading(isLoading);
-      const resCategory = await addNewProductCategory(category).unwrap();
-      console.log('resCategory: ', resCategory);
-    } catch (err) {
-      message.error('Failed to add category');
-      console.log('err: ', err);
-    }
+    //   console.log('category to be submitted: ', category);
+    //   // setLoading(isLoading);
+    //   const resCategory = await addNewProductCategory(category).unwrap();
+    //   console.log('resCategory: ', resCategory);
+    // } catch (err) {
+    //   message.error('Failed to add category');
+    //   console.log('err: ', err);
+    // }
   };
 
   useEffect(() => {
     const categoryAdded = async () => {
       if (isSuccess) {
-        setCreatedNewCategory(true);
+        setCreatedNewBrand(true);
 
         form.resetFields(); // Reset form after successful submission
-        message.success('Category added successfully');
-        closeAddCategoryModal();
+        message.success('Brand added successfully');
+        closeAddBrandModal();
       } else if(isError) {
-        message.error('Failed to add category');
-        console.log('Failed to add category: ', error);
+        message.error('Failed to add brand');
+        console.log('Failed to add brand: ', error);
       }
     }
 
@@ -77,7 +77,7 @@ const AddCategoryForm = ({ closeAddCategoryModal, categoryName, setCreatedNewCat
 
   return (
     <>
-      <h2>Add Category</h2>
+      <h2>Add Brand</h2>
       <Form
         form={form}
         layout="vertical"
@@ -86,7 +86,7 @@ const AddCategoryForm = ({ closeAddCategoryModal, categoryName, setCreatedNewCat
       >
         <Form.Item name={'productCategoryName'} label="Category Name">
         {/* <Form.Item label="Category Name"> */}
-          <Input style={{ padding: '16px' }} value={productCategoryName} />
+          <Input style={{ padding: '16px' }} value={productBrandName} />
         </Form.Item>
 
         {/* <Form.Item label="Slug" required>
@@ -108,7 +108,7 @@ const AddCategoryForm = ({ closeAddCategoryModal, categoryName, setCreatedNewCat
             loading={isLoading}
             style={{ width: '100%', padding: '25px' }}
           >
-            Add Category
+            Add Brand
           </Button>
         </Form.Item>
       </Form>

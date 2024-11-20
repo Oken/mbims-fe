@@ -551,6 +551,10 @@ export const {
   useEditProductSubcategoryMutation,
   useDeleteProductSubcategoryMutation,
 
+  useAddNewBrandMutation,
+  useEditBrandMutation,
+  useDeleteBrandMutation,
+
   useAddNewStoreMutation,
   useEditStoreMutation,
   useDeleteStoreMutation,

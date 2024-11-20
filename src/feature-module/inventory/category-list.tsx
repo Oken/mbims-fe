@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { ColumnsType } from 'antd/es/table';
+import { ProductCategoryT } from '../../types/product-types';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { Col, Form, FormInstance, Row, Select, Input, Table } from 'antd';
@@ -31,10 +32,12 @@ const Option = Select.Option;
 
 const CategoryList = () => {
   const [form] = Form.useForm<FormInstance>();
-  const [expand, setExpand] = useState<boolean>(false);
-  const [categories, setCategories] = useState<any>([])
+  const [categories, setCategories] = useState<ProductCategoryT[]>([])
+  const [createdNewCategory, setCreatedNewCategory] = useState<boolean>(false);
+  const [categoryToEdit, setCategoryToEdit] = useState<ProductCategoryT[]>([])
 
-  const categoryModalRef = useRef<CustomModalRef>(null);
+  const addCategoryModalRef = useRef<CustomModalRef>(null);
+  const editCategoryModalRef = useRef<CustomModalRef>(null);
 
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const toggleFilterVisibility = () => {
@@ -74,7 +77,6 @@ const CategoryList = () => {
         console.log('deletedCategory: ', deletedCategory);
       } catch (error) {
         console.error('Error deleting category:', error, categoryDeletionError);
-        MySwal.fire('Error', 'Failed to delete the category.', 'error');
       }
     } else {
       MySwal.close();
@@ -111,6 +113,10 @@ const CategoryList = () => {
           showConfirmButton: false,
         });
       }
+
+      if (isCategoryDeletionError) {
+        MySwal.fire('Error', 'Failed to delete the category.', 'error');
+      }
     };
     deletingProduct();
   }, [isCategoryDeletionLoading]);
@@ -127,7 +133,7 @@ const CategoryList = () => {
     const loadCategories = async () => {
       try {
         if (isProductCategoryFetchingSuccess) {
-          console.log('fetchedProducts: ', fetchedProductCategories);
+          console.log('fetchedProductCategories: ', fetchedProductCategories, '\ncategories: ', categories);
           setCategories(fetchedProductCategories);
           return;
         }
@@ -142,17 +148,30 @@ const CategoryList = () => {
     };
 
     loadCategories();
-  }, [isProductCategoryFetching]);
+  }, [
+    isProductCategoryFetching,
+    // Update category list after new is created or updated
+    fetchedProductCategories,
+    createdNewCategory,
+  ]);
 
-  const openCategoryModal = () => {
-    categoryModalRef.current?.openModal();
+  const openAddCategoryModal = () => {
+    addCategoryModalRef.current?.openModal();
   };
 
-  const closeCategoryModal = () => {
-    categoryModalRef.current?.closeModal();
+  const closeAddCategoryModal = () => {
+    addCategoryModalRef.current?.closeModal();
   };
 
-  const columns: ColumnsType<any> = [
+  const openEditCategoryModal = () => {
+    editCategoryModalRef.current?.openModal();
+  };
+
+  const closeEditCategoryModal = () => {
+    editCategoryModalRef.current?.closeModal();
+  };
+
+  const columns: ColumnsType<ProductCategoryT> = [
     {
       title: 'name',
       dataIndex: 'name',
@@ -195,7 +214,7 @@ const CategoryList = () => {
       title: 'Action',
       dataIndex: 'action',
       key: 'actions',
-      render: (_, category, index) => (
+      render: (_, category: ProductCategoryT, index) => (
         <Fragment key={index}>
           <div className="action-table-data">
             <div className="edit-delete-action">
@@ -203,7 +222,11 @@ const CategoryList = () => {
                 <i
                   data-feather="edit"
                   className="feather-edit"
-                  onClick={ () => openCategoryModal() }
+                  onClick={() => {
+                    setCategoryToEdit(category);
+                    openEditCategoryModal();
+                    setCreatedNewCategory(false);
+                  }}
                 ></i>
               </Link>
               <Link className="confirm-text p-2" to="#">
@@ -219,10 +242,21 @@ const CategoryList = () => {
   return (
     <>
       <CustomModal
-        ref={categoryModalRef}
+        ref={addCategoryModalRef}
+        width={'400px'}
+        content={<AddCategoryForm
+          closeAddCategoryModal={closeAddCategoryModal}
+          categoryName={''}
+          setCreatedNewCategory={setCreatedNewCategory}
+        />}
+      />
+      <CustomModal
+        ref={editCategoryModalRef}
         width={'400px'}
         content={<EditCategoryForm
-          closeCategoryModal={closeCategoryModal}
+          closeEditCategoryModal={closeEditCategoryModal}
+          category={categoryToEdit}
+          setCreatedNewCategory={setCreatedNewCategory}
         />}
       />
       <div className="page-wrapper">
@@ -243,15 +277,23 @@ const CategoryList = () => {
                 </div>
               </Col>
               <Col span={14}>
-                <Row gutter={40} style={{ width: '100%' }}>
-                  <Col span={12}>
+                <Row gutter={40} style={{ width: '100%' }} justify={'end'}>
+                  <Col span={12} style={{ maxWidth: 'fit-content' }}>
                     <CustomButton backgroundColor="white" textColor="#2D7DEE" className="search-button">
                       <Download className="me-2" />
                       Import Categories
                     </CustomButton>
                   </Col>
-                  <Col span={12}>
-                    <CustomButton backgroundColor="white" textColor="#2D7DEE" className="search-button">
+                  <Col span={12} style={{ maxWidth: 'fit-content' }}>
+                    <CustomButton
+                      backgroundColor="#2D7DEE"
+                      textColor="white"
+                      className="search-button"
+                      onClick={() => {
+                        openAddCategoryModal();
+                        setCreatedNewCategory(false);
+                      }}
+                    >
                       <Plus className="me-2" />
                       Add Category
                     </CustomButton>

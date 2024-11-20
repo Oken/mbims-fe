@@ -508,11 +508,11 @@ const AddStandardProduct = () => {
     searchSupplier(val);
   }
 
-  const openCategoryModal = () => {
+  const openAddCategoryModal = () => {
     categoryModalRef.current?.openModal();
   };
 
-  const closeCategoryModal = () => {
+  const closeAddCategoryModal = () => {
     categoryModalRef.current?.closeModal();
   };
 
@@ -678,14 +678,14 @@ const AddStandardProduct = () => {
     console.log('categoryItems after refetch: ', categoryItems, fetchedProductCategories);
     setCategoryItems(fetchedProductCategories);
 
-    if (createdNewCategory) {
+    if (createdNewSupplier) {
       setIsSupplierSelectOpen((prev) => !prev);
       searchSupplier(supplierSearchTerm);
     }
   }, [
     fetchedProductSuppliers,
     suppliers,
-    createdNewCategory,
+    createdNewSupplier,
   ]);
 
   const {
@@ -824,7 +824,7 @@ const AddStandardProduct = () => {
     e.preventDefault();
     setIsCategorySelectOpen(false);
     setCreatedNewCategory(false);
-    openCategoryModal();
+    openAddCategoryModal();
     handleCategoryBlur();
   };
 
@@ -882,7 +882,7 @@ const AddStandardProduct = () => {
         ref={categoryModalRef}
         width={'400px'}
         content={<AddCategoryForm
-          closeCategoryModal={closeCategoryModal}
+          closeAddCategoryModal={closeAddCategoryModal}
           categoryName={categorySearchTerm}
           setCreatedNewCategory={setCreatedNewCategory}
           />}

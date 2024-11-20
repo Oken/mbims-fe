@@ -1,344 +1,332 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SetStateAction, useState } from 'react';
-import { Link } from 'react-router-dom/dist';
-import AddBrand from '../../core/modals/inventory/add-brand';
-import EditBrand from '../../core/modals/inventory/edit-brand';
-import Swal from 'sweetalert2';
-import Table from '../../core/pagination/data-table';
-import Select from 'react-select';
-import {
-  Calendar,
-  ChevronUp,
-  Filter,
-  PlusCircle,
-  RotateCcw,
-  StopCircle,
-  Zap,
-  Sliders,
-} from 'react-feather';
-import { DatePicker } from 'antd';
-import { OverlayTrigger, Tooltip, TooltipProps } from 'react-bootstrap';
-import ImageWithBasePath from '../../core/img/imagewithbasebath';
+import { SetStateAction, useState, Fragment, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
 import { ColumnsType } from 'antd/es/table';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { toggleShowHeader } from '../../store/feature-slice/utils';
-import { brandlistdata } from '../../core/json/brandlistdata';
-import FeatherIcon from 'feather-icons-react';
+import { ProductBrandT } from '../../types/product-types';
+
+import { SearchOutlined } from '@ant-design/icons';
+import { Col, Form, FormInstance, Row, Select, Input, Table } from 'antd';
+import CustomButton from '../components/button';
+import { Download, Upload, Plus } from 'react-feather';
+import {
+  // Queries
+  useGetProductBrandsQuery,
+
+  // Mutations
+  useEditBrandMutation,
+  useDeleteBrandMutation,
+
+  // Selectors
+  selectAllBrands,
+  selectBrandById,
+} from '../../store/feature-slice/products';
+import CustomModal, { CustomModalRef } from '../../custom-modal';
+import EditBrandForm from '../components/button/forms/edit-brand';
+import AddBrandForm from '../components/button/forms/add-brand';
+
+const { Item: FormItem } = Form;
+const Option = Select.Option;
 
 const BrandList = () => {
-  const dataSource = brandlistdata;
-  const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.slices.showHeader);
+  const [form] = Form.useForm<FormInstance>();
+  const [brands, setBrands] = useState<ProductBrandT[]>([])
+  const [createdNewBrand, setCreatedNewBrand] = useState<boolean>(false);
+  const [brandToEdit, setBrandToEdit] = useState<ProductBrandT[]>([])
 
-  const oldandlatestvalue = [
-    { value: 'date', label: 'Sort by Date' },
-    { value: 'newest', label: 'Newest' },
-    { value: 'oldest', label: 'Oldest' },
-  ];
-  const brandOptions = [
-    { value: 'choose', label: 'Choose Brand' },
-    { value: 'lenevo', label: 'Lenevo' },
-    { value: 'boat', label: 'Boat' },
-    { value: 'nike', label: 'Nike' },
-  ];
-  const status = [
-    { value: 'choose Status', label: 'Choose Status' },
-    { value: 'Active', label: 'Active' },
-    { value: 'InActive', label: 'InActive' },
-  ];
-  const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const toggleFilterVisibility = () => {
-    setIsFilterVisible((prevVisibility) => !prevVisibility);
-  };
-  const [, setSelectedDate] = useState(new Date());
-  const handleDateChange = (date: SetStateAction<Date>) => {
-    setSelectedDate(date);
-  };
+  const addBrandModalRef = useRef<CustomModalRef>(null);
+  const editBrandModalRef = useRef<CustomModalRef>(null);
 
-  const renderTooltip = (props: TooltipProps) => (
-    <Tooltip id="pdf-tooltip" {...props}>
-      Pdf
-    </Tooltip>
-  );
-  const renderExcelTooltip = (props: TooltipProps) => (
-    <Tooltip id="excel-tooltip" {...props}>
-      Excel
-    </Tooltip>
-  );
-  const renderPrinterTooltip = (props: TooltipProps) => (
-    <Tooltip id="printer-tooltip" {...props}>
-      Printer
-    </Tooltip>
-  );
-  const renderRefreshTooltip = (props: TooltipProps) => (
-    <Tooltip id="refresh-tooltip" {...props}>
-      Refresh
-    </Tooltip>
-  );
-  const renderCollapseTooltip = (props: TooltipProps) => (
-    <Tooltip id="refresh-tooltip" {...props}>
-      Collapse
-    </Tooltip>
-  );
-  const columns: ColumnsType<any> = [
-    {
-      title: 'Brand',
-      dataIndex: 'brand',
-      sorter: (a, b) => a.brand.length - b.brand.length,
-    },
-
-    {
-      title: 'Logo',
-      dataIndex: 'logo',
-      render: (record) => (
-        <span className="productimgname">
-          <Link to="#" className="product-img stock-img">
-            <ImageWithBasePath alt="" src={record.logo} />
-          </Link>
-        </span>
-      ),
-      sorter: (a, b) => a.logo.length - b.logo.length,
-      width: '5%',
-    },
-    {
-      title: 'Createdon',
-      dataIndex: 'createdon',
-      sorter: (a, b) => a.createdon.length - b.createdon.length,
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      render: (text) => (
-        <span className="badge badge-linesuccess">
-          <Link to="#"> {text}</Link>
-        </span>
-      ),
-      sorter: (a, b) => a.status.length - b.status.length,
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'actions',
-      key: 'actions',
-      render: () => (
-        <div className="action-table-data">
-          <div className="edit-delete-action">
-            <Link className="me-2 p-2" to="#" data-bs-toggle="modal" data-bs-target="#edit-brand">
-              <i data-feather="edit" className="feather-edit"></i>
-            </Link>
-            <Link className="confirm-text p-2" to="#">
-              <i data-feather="trash-2" className="feather-trash-2" onClick={showConfirmationAlert}></i>
-            </Link>
-          </div>
-        </div>
-      ),
-    },
-  ];
   const MySwal = withReactContent(Swal);
 
-  const showConfirmationAlert = () => {
-    MySwal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+  const [deleteBrand, {
+    isLoading: isBrandDeletionLoading,
+    isError: isBrandDeletionError,
+    isSuccess: isBrandDeletionSuccess,
+    error: brandDeletionError,
+  }] = useDeleteBrandMutation();
+
+  const showConfirmationAlert = async (id: number) => {
+    const result = await MySwal.fire({
+      title: "<h3 style={{ color: 'black' }}>Delete this brand?</h3>",
+      text: 'You won\'t be able to revert this action',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#00ff00',
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonColor: '#ff0000',
+      confirmButtonColor: '#D5E5FC',
+      cancelButtonColor: '#FF3B3B',
+      padding: '20px 10px',
+      confirmButtonText: 'Yes, delete',
       cancelButtonText: 'Cancel',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        MySwal.fire({
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Wait for product deletion
+        const deletedBrand = await deleteBrand(id);
+        console.log('deletedBrand: ', deletedBrand);
+      } catch (error) {
+        console.error('Error deleting brand:', error, brandDeletionError);
+      }
+    } else {
+      MySwal.close();
+    }
+  };
+
+  // for deleting items
+  useEffect(() => {
+    const deletingProduct = async () => {
+      // setLoading(true);
+      if (isBrandDeletionSuccess) {
+        // Close any currently opened modal
+        MySwal.close();
+        // message message
+        await MySwal.fire({
           title: 'Deleted!',
-          text: 'Your file has been deleted.',
-          // className: "btn btn-success",
+          text: 'Brand has been deleted.',
+          icon: 'success',
           confirmButtonText: 'OK',
           customClass: {
             confirmButton: 'btn btn-success',
           },
         });
-      } else {
-        MySwal.close();
+        return;
       }
-    });
+
+      if (isBrandDeletionLoading) {
+        // Show deleting message
+        await MySwal.fire({
+          title: 'Please wait',
+          text: 'Deleting...',
+          icon: 'error',
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      }
+
+      if (isBrandDeletionError) {
+        MySwal.fire('Error', 'Failed to delete the brand.', 'error');
+      }
+    };
+    deletingProduct();
+  }, [isBrandDeletionLoading]);
+
+  const {
+    error: productBrandError,
+    isError: isProductBrandFetchingError,
+    isSuccess: isProductBrandFetchingSuccess,
+    isLoading: isProductBrandFetching,
+  } = useGetProductBrandsQuery([]);
+  const fetchedProductBrands = useSelector(selectAllBrands);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        if (isProductBrandFetchingSuccess) {
+          console.log('fetchedProductBrands: ', fetchedProductBrands, '\nbrands: ', brands);
+          setBrands(fetchedProductBrands);
+          return;
+        }
+
+        if (isProductBrandFetchingError) {
+          console.log('productBrandError', productBrandError);
+          throw productBrandError;
+        }
+      } catch (err) {
+        console.error('Failed to fetch products: ', err);
+      }
+    };
+
+    loadCategories();
+  }, [
+    isProductBrandFetching,
+    // Update brand list after new is created or updated
+    fetchedProductBrands,
+    createdNewBrand,
+  ]);
+
+  const openAddBrandModal = () => {
+    addBrandModalRef.current?.openModal();
   };
-  return (
-    <div>
-      <div className="page-wrapper">
-        <div className="content">
-          <div className="page-header">
-            <div className="add-item d-flex">
-              <div className="page-title">
-                <h4>Brand</h4>
-                <h6>Manage your brands</h6>
-              </div>
-            </div>
-            <ul className="table-top-head">
-              <li>
-                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                  <Link to="">
-                    <ImageWithBasePath src="assets/img/icons/pdf.svg" alt="img" />
-                  </Link>
-                </OverlayTrigger>
-              </li>
-              <li>
-                <OverlayTrigger placement="top" overlay={renderExcelTooltip}>
-                  <Link to="" data-bs-toggle="tooltip" data-bs-placement="top">
-                    <ImageWithBasePath src="assets/img/icons/excel.svg" alt="img" />
-                  </Link>
-                </OverlayTrigger>
-              </li>
-              <li>
-                <OverlayTrigger placement="top" overlay={renderPrinterTooltip}>
-                  <Link to="" data-bs-toggle="tooltip" data-bs-placement="top">
-                    <i data-feather="printer" className="feather-printer" />
-                  </Link>
-                </OverlayTrigger>
-              </li>
-              <li>
-                <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
-                  <Link to="" data-bs-toggle="tooltip" data-bs-placement="top">
-                    <RotateCcw />
-                    <FeatherIcon icon="rotate-ccw" />
-                  </Link>
-                </OverlayTrigger>
-              </li>
-              <li>
-                <OverlayTrigger placement="top" overlay={renderCollapseTooltip}>
-                  <Link
-                    to=""
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    id="collapse-header"
-                    className={data ? 'active' : ''}
-                    onClick={() => {
-                      dispatch(toggleShowHeader());
-                    }}
-                  >
-                    <ChevronUp />
-                    <FeatherIcon icon="chevron-up" />
-                  </Link>
-                </OverlayTrigger>
-              </li>
-            </ul>
-            <div className="page-btn">
-              <Link to="#" className="btn btn-added" data-bs-toggle="modal" data-bs-target="add-brand">
-                <PlusCircle className="me-2" />
-                <FeatherIcon icon="plus-circle" className="me-2" />
-                Add New Brand
+
+  const closeAddBrandModal = () => {
+    addBrandModalRef.current?.closeModal();
+  };
+
+  const openEditBrandModal = () => {
+    editBrandModalRef.current?.openModal();
+  };
+
+  const closeEditBrandModal = () => {
+    editBrandModalRef.current?.closeModal();
+  };
+
+  const columns: ColumnsType<ProductBrandT> = [
+    {
+      title: 'name',
+      dataIndex: 'name',
+      render: (_, brand, index) => (
+        <Fragment key={index}>
+          <span className="productimgname">
+            {brand.brandName}
+          </span>
+        </Fragment>
+      ),
+    },
+    {
+      title: 'Date Created',
+      dataIndex: 'date-created',
+      render: (_, brand, index) => (
+        <Fragment key={index}>
+          <span className="productimgname">
+          </span>
+        </Fragment>
+      ),
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'actions',
+      render: (_, brand, index) => (
+        <Fragment key={index}>
+          <div className="action-table-data">
+            <div className="edit-delete-action">
+              <Link className="me-2 p-2" to="#" data-bs-toggle="modal" data-bs-target="#edit-brand">
+                <i
+                  data-feather="edit"
+                  className="feather-edit"
+                  onClick={() => {
+                    setBrandToEdit(brand);
+                    // openEditBrandModal();
+                    setCreatedNewBrand(false);
+                  }}
+                ></i>
+              </Link>
+              <Link className="confirm-text p-2" to="#">
+                <i data-feather="trash-2" className="feather-trash-2" onClick={() => showConfirmationAlert(brand.id)}></i>
               </Link>
             </div>
+          </div>
+        </Fragment>
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <CustomModal
+        ref={addBrandModalRef}
+        width={'400px'}
+        content={<AddBrandForm
+          closeAddBrandModal={closeAddBrandModal}
+          brandName={''}
+          setCreatedNewBrand={setCreatedNewBrand}
+        />}
+      />
+      <CustomModal
+        ref={editBrandModalRef}
+        width={'400px'}
+        content={<EditBrandForm
+          closeEditBrandModal={closeEditBrandModal}
+          brand={brandToEdit}
+          setCreatedNewBrand={setCreatedNewBrand}
+        />}
+      />
+      <div className="page-wrapper">
+        <div className="content">
+          <div>
+            <Row style={{ width: '100%', marginBottom: 30 }}>
+              <div className="add-item d-flex">
+                <div className="page-title">
+                  <h4>Brands</h4>
+                  <h6>Manage your brands</h6>
+                </div>
+              </div>
+            </Row>
+            <Row gutter={40} style={{ width: '100%', marginBottom: 20, justifyItems: 'flex-end' }}>
+              <Col span={10}>
+                <div style={{ fontWeight: 500 }}>
+                  {brands.length} brands
+                </div>
+              </Col>
+              <Col span={14}>
+                <Row gutter={40} style={{ width: '100%' }} justify={'end'}>
+                  <Col span={12} style={{ maxWidth: 'fit-content' }}>
+                    <CustomButton backgroundColor="white" textColor="#2D7DEE" className="search-button">
+                      <Download className="me-2" />
+                      Import Brands
+                    </CustomButton>
+                  </Col>
+                  <Col span={12} style={{ maxWidth: 'fit-content' }}>
+                    <CustomButton
+                      backgroundColor="#2D7DEE"
+                      textColor="white"
+                      className="search-button"
+                      onClick={() => {
+                        openAddBrandModal();
+                        setCreatedNewBrand(false);
+                      }}
+                    >
+                      <Plus className="me-2" />
+                      Add Brand
+                    </CustomButton>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
           </div>
           {/* /product list */}
           <div className="card table-list-card">
             <div className="card-body">
               <div className="table-top">
-                <div className="search-set">
-                  <div className="search-input">
-                    <input type="text" placeholder="Search" className="form-control form-control-sm formsearch" />
-                    <Link to="" className="btn btn-searchset">
-                      <i data-feather="search" className="feather-search" />
-                    </Link>
-                  </div>
-                </div>
-                <div className="search-path">
-                  <Link to="" className={`btn btn-filter ${isFilterVisible ? 'setclose' : ''}`} id="filter_search">
-                    <Filter
-                      className="filter-icon"
-                      onClick={toggleFilterVisibility}
-                    />
-                    <span onClick={toggleFilterVisibility}>
-                      <FeatherIcon icon="filter" className="filter-icon" />
-                    </span>
-                    <span onClick={toggleFilterVisibility}>
-                      <ImageWithBasePath src="assets/img/icons/closes.svg" alt="img" />
-                    </span>
-                  </Link>
-                </div>
-                <div className="form-sort">
-                  <Sliders className="info-img" />
-                  <FeatherIcon icon="sliders" className="info-img" />
-                  <Select
-                    className="img-select"
-                    classNamePrefix="react-select"
-                    options={oldandlatestvalue}
-                    placeholder="Newest"
-                  />
-                </div>
-              </div>
-              {/* /Filter */}
-
-              <div
-                className={`card${isFilterVisible ? ' visible' : ''}`}
-                id="filter_inputs"
-                style={{ display: isFilterVisible ? 'block' : 'none' }}
-              >
-                <div className="card-body pb-0">
-                  <div className="row">
-                    <div className="col-lg-3 col-sm-6 col-12">
-                      <div className="input-blocks">
-                        <Zap className="info-img" />
-                        <FeatherIcon icon="zap" className="info-img" />
-                        <Select
-                          className="img-select"
-                          classNamePrefix="react-select"
-                          options={brandOptions}
-                          placeholder="Choose Brand"
-                        />
-                      </div>
+                <Row gutter={40} style={{ width: '100%' }}>
+                  <Col span={12}>
+                    <div style={{ display: 'flex' }}>
+                      {/* <div> */}
+                      <Input
+                        placeholder='Enter product name, sku or tag'
+                        prefix={<SearchOutlined />}
+                        style={{ width: 330, height: 38 }}
+                      />
+                      {/* </div> */}
+                      <CustomButton backgroundColor="#F45D01" textColor="#fff" className="search-button">
+                        Search
+                      </CustomButton>
                     </div>
-                    <div className="col-lg-3 col-sm-6 col-12">
-                      <div className="input-blocks">
-                        <Calendar className="info-img" />
-                        <FeatherIcon icon="calender" className="info-img" />
-                        <div className="input-groupicon">
-                          <DatePicker
-                            // selected={selectedDate}
-                            onChange={handleDateChange}
-                            type="date"
-                            className="filterdatepicker"
-                            // dateFormat="dd-MM-yyyy"
-                            placeholder="Choose Date"
-                          />
-                        </div>
-                      </div>
+                  </Col>
+                  <Col span={6}>
+                    <div>
+                      <Select
+                        placeholder="Pick brand"
+                        style={{ width: '100%', height: 38 }}
+                      >
+                        <Option value='6' style={{ padding: '10px' }} selected>
+                          Last 6 Months
+                        </Option>
+                      </Select>
                     </div>
-                    <div className="col-lg-3 col-sm-6 col-12">
-                      <div className="input-blocks">
-                        <i data-feather="stop-circle" className="info-img" />
-                        <StopCircle className="info-img" />
-                        <FeatherIcon icon="stop-circle" className="info-img" />
-                        <Select
-                          className="img-select"
-                          classNamePrefix="react-select"
-                          options={status}
-                          placeholder="Choose Brand"
-                        />
-                      </div>
+                  </Col>
+                  <Col span={6}>
+                    <div>
+                      <CustomButton backgroundColor="white" textColor="#2D7DEE" className="search-button">
+                        <Upload className="me-2" />
+                        Export List
+                      </CustomButton>
                     </div>
-                    <div className="col-lg-3 col-sm-6 col-12 ms-auto">
-                      <div className="input-blocks">
-                        <Link to="" className="btn btn-filters ms-auto">
-                          {' '}
-                          <i data-feather="search" className="feather-search" /> Search{' '}
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  </Col>
+                </Row>
               </div>
 
-              {/* /Filter */}
               <div className="table-responsive">
-                <Table columns={columns} dataSource={dataSource} />
+                <Table columns={columns} dataSource={brands} />
               </div>
             </div>
-            {/* /product list */}
           </div>
+          {/* /product list */}
         </div>
       </div>
-      <AddBrand />
-      <EditBrand />
-    </div>
+    </>
   );
 };
 

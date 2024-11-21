@@ -34,7 +34,7 @@ const BrandList = () => {
   const [form] = Form.useForm<FormInstance>();
   const [brands, setBrands] = useState<ProductBrandT[]>([])
   const [createdNewBrand, setCreatedNewBrand] = useState<boolean>(false);
-  const [brandToEdit, setBrandToEdit] = useState<ProductBrandT[]>([])
+  const [brandToEdit, setBrandToEdit] = useState<ProductBrandT>(null);
 
   const addBrandModalRef = useRef<CustomModalRef>(null);
   const editBrandModalRef = useRef<CustomModalRef>(null);
@@ -191,14 +191,14 @@ const BrandList = () => {
       render: (_, brand, index) => (
         <Fragment key={index}>
           <div className="action-table-data">
-            <div className="edit-delete-action">
+            <div className="edit-delete-action" style={{ justifyContent: 'start' }}>
               <Link className="me-2 p-2" to="#" data-bs-toggle="modal" data-bs-target="#edit-brand">
                 <i
                   data-feather="edit"
                   className="feather-edit"
                   onClick={() => {
                     setBrandToEdit(brand);
-                    // openEditBrandModal();
+                    openEditBrandModal();
                     setCreatedNewBrand(false);
                   }}
                 ></i>
@@ -298,7 +298,6 @@ const BrandList = () => {
                   <Col span={6}>
                     <div>
                       <Select
-                        placeholder="Pick brand"
                         style={{ width: '100%', height: 38 }}
                       >
                         <Option value='6' style={{ padding: '10px' }} selected>

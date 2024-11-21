@@ -43,7 +43,7 @@ const sideItems: MenuItem[] = [
   createMenuItem('Point of Sale', 'point-of-sale', <img src={tag} alt="" width={10} height={10} />, '#', []),
 
   createMenuItem('Inventory', 'inventory', <img src={inventory} alt="" width={10} height={10} />, '#', [
-    createMenuItem('Products', 'products', <img src={product} alt="" width={10} height={10} />, '/product-list'),
+    createMenuItem('Products', 'products', <img src={product} alt="" width={10} height={10} />, '/outlet-list'),
 
     // createMenuItem('Create Product', 'create-product', <ProductOutlined />, '/add-products'),
 
@@ -61,7 +61,13 @@ const sideItems: MenuItem[] = [
   ]),
   createMenuItem('Report', 'report', <img src={people} alt="" width={10} height={10} />, '/report'),
 
-  createMenuItem('People', 'people', <img src={people} alt="" width={10} height={10} />, '#', []),
+  createMenuItem('People', 'people', <img src={people} alt="" width={10} height={10} />, '#', [
+    createMenuItem('Customers', 'customers', <img src={product} alt="" width={10} height={10} />, '#'),
+
+    createMenuItem('Groups', 'groups', <img src={category} alt="" width={10} height={10} />, '#'),
+
+    createMenuItem('Suppliers', 'suppliers', <img src={store} alt="" width={10} height={10} />, '/supplier-list'),
+  ]),
 
   createMenuItem('Store Setup', 'store-setup', <img src={people} alt="" width={10} height={10} />, '#', []),
 

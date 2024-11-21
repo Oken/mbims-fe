@@ -19,13 +19,13 @@ interface Category {
   categoryStatus: boolean;
 }
 
-interface AddCategoryProps {
+interface EditCategoryProps {
   closeEditCategoryModal: () => void;
-  category: ProductCategoryT;
+  category: ProductCategoryT[];
   setCreatedNewCategory: (value: boolean) => void;
 }
 
-const AddCategoryForm = ({ closeEditCategoryModal, category, setCreatedNewCategory }: AddCategoryProps) => {
+const EditCategoryForm = ({ closeEditCategoryModal, category, setCreatedNewCategory }: EditCategoryProps) => {
   const [form] = Form.useForm();
   const [categoryToEdit, setCategoryToEdit] = useState(category);
   const [
@@ -115,4 +115,4 @@ const AddCategoryForm = ({ closeEditCategoryModal, category, setCreatedNewCatego
   );
 };
 
-export default AddCategoryForm;
+export default EditCategoryForm;

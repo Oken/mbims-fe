@@ -163,6 +163,9 @@ import AddStandardProduct from '../feature-module/inventory/add-products/standar
 import AddCompositeProduct from '../feature-module/inventory/add-products/composite-product';
 import AddVariantProduct from '../feature-module/inventory/add-products/variant-product';
 // import AddProduct from '../feature-module/inventory/add-product';
+import OutletList from '../feature-module/inventory/products/outlet-list';
+import SupplierList from '../feature-module/inventory/supplier-list';
+import SupplierDetail from '../feature-module/inventory/supplier-item';
 
 const routes = all_routes;
 
@@ -982,9 +985,9 @@ export const publicRoutes = [
   },
   {
     id: 85,
-    path: routes.suppliers,
-    name: 'suppliers',
-    element: <Suppliers />,
+    path: routes.supplierlist,
+    name: 'supplier-list',
+    element: <SupplierList />,
     route: Route,
   },
   {
@@ -1398,6 +1401,20 @@ export const publicRoutes = [
     path: routes.addVariantProduct,
     name: 'variant-products',
     element: <AddVariantProduct />,
+    route: Route,
+  },
+  {
+    id: 103,
+    path: routes.outletlist,
+    name: 'outlet-list',
+    element: <OutletList />,
+    route: Route,
+  },
+  {
+    id: 102,
+    path: routes.supplierdetail,
+    name: 'supplier-detail',
+    element: <SupplierDetail />,
     route: Route,
   },
 ];

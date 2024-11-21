@@ -21,18 +21,11 @@ interface EditBrandProps {
 const EditBrandForm = ({ closeEditBrandModal, brand, setCreatedNewBrand }: EditBrandProps) => {
   const [form] = Form.useForm();
   const [brandToEdit, setBrandToEdit] = useState(brand);
-  const [
-    productBrandName,
-    setProductBrandName
-  ] = useState(brand.brandName);
 
   // Update the form input when the brand changes
   useEffect(() => {
     setBrandToEdit(brand);
-    setProductBrandName(brand.brandName);
   }, [brand]);
-
-  console.log('\nproductBrandName: ', productBrandName, '\nbrandName: ', brand);
 
   const [addEditBrand, { isLoading, isSuccess, isError, error }] = useEditBrandMutation();
 
@@ -40,10 +33,10 @@ const EditBrandForm = ({ closeEditBrandModal, brand, setCreatedNewBrand }: EditB
     // Handle form submission
     try {
       const brandToAdd = {
-        id: values.id ? values.id : brandToEdit.id,
-        brandName: values.brandName ? values.brandName : brand.brandName,
-        logo: null,
-        brandStatus: true,
+        id: values.id,
+        brandName: values.brandName,
+        logo: values.logo || null,
+        brandStatus: values.status,
       }
 
       console.log('brandToAdd to be submitted: ', brand);
@@ -83,7 +76,7 @@ const EditBrandForm = ({ closeEditBrandModal, brand, setCreatedNewBrand }: EditB
         style={{ marginTop: '30px' }}
       >
         <Form.Item name={'brandName'} label="Brand Name">
-          <Input style={{ padding: '16px' }} value={productBrandName} />
+          <Input style={{ padding: '16px' }} value={brand.brandName} />
         </Form.Item>
 
         <Form.Item>

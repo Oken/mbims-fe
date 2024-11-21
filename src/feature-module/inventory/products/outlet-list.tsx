@@ -33,7 +33,7 @@ import {
 const { Item: FormItem } = Form;
 const Option = Select.Option;
 
-const ProductList = () => {
+const OutletList = () => {
   const route = all_routes;
 
   // Form instance for managing form state with hooks
@@ -457,10 +457,10 @@ const ProductList = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Product List</h4>
+              <h4>Product Outlet</h4>
             </div>
           </div>
-          <div className="page-btn import">
+          {/* <div className="page-btn import">
             <CustomButton backgroundColor="white" textColor="#2D7DEE" className="search-button">
               <Upload className="me-2" />
               Export
@@ -471,7 +471,7 @@ const ProductList = () => {
               <Download className="me-2" />
               Import
             </CustomButton>
-          </div>
+          </div> */}
           <div className="page-btn import">
             <Link to="/add-products">
               <CustomButton backgroundColor="#2D7DEE" textColor="white" className="add-button">
@@ -496,7 +496,7 @@ const ProductList = () => {
                     className="form-control form-control-sm formsearch"
                   /> */}
                   <Input
-                    placeholder='Enter product name, sku or tag'
+                    placeholder='Enter product name or category'
                     prefix={<SearchOutlined />}
                     style={{ width: 330, height: 38 }}
                   />
@@ -505,7 +505,7 @@ const ProductList = () => {
                   Search
                 </CustomButton>
               </div>
-              <div className="search-path" onClick={toggle}>
+              {/* <div className="search-path" onClick={toggle}>
                 {expand ? (
                   <CustomButton
                     backgroundColor="white"
@@ -520,18 +520,17 @@ const ProductList = () => {
                     <Filter className="me-2" /> Filter
                   </CustomButton>
                 )}
-              </div>
+              </div> */}
             </div>
-            <div>
+            {/* <div>
               <Form form={form} name="advanced_search" className="ant-advanced-search-form" onFinish={handleSearch}>
                 <Row gutter={20} style={{ marginBottom: 30 }}>
                   {getFields()}
                 </Row>
-              </Form>
-            </div>
+              </Form></div>
             <div className="table-responsive" style={{ width: '100%', overflowX: 'scroll' }}>
               <Table columns={columns} dataSource={products} />
-            </div>
+            </div> */}
           </div>
         </div>
         {/* /product list */}
@@ -541,4 +540,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default OutletList;

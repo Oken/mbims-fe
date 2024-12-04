@@ -17,6 +17,7 @@ interface ProductType {
   images: string[]; // array of image paths (strings)
   inventoryTracking: boolean;
   productCategoryId: number;
+  productCategoryName: string;
   productDescription: string;
   productImages: null | string[]; // could be null or an array of strings
   quantityAlert: number;
@@ -29,7 +30,7 @@ interface ProductType {
   supplierIds: null | number[]; // assuming supplier IDs might be an array of numbers
   tags: string[]; // array of tags
   taxId: number;
-  type: 'SINGLE' | 'BUNDLE'; // assuming only 'SINGLE' and 'BUNDLE' types exist
+  type: 'SINGLE' | 'COMPOSITE' | 'VARIANT'; // assuming only 'SINGLE' and 'BUNDLE' types exist
   unitId: number;
   variants: null | any[];
 
@@ -76,22 +77,22 @@ type TimeT = {
   nano: number;
 }
 
+interface WorkingHourType {
+  id?: number;
+  dayOfTheWeek: string;
+  enabled: boolean;
+  openingTime: string;
+  closingTime: string;
+}
+
 type OutletWorkingHoursT = {
-  id: number;
-  outletId: number;
-  workingHours: [
-    {
-      id: number;
-      dayOfTheWeek: string;
-      enabled: boolean;
-      openingTime: TimeT;
-      closingTime: TimeT;
-    }
-  ]
+  id?: number;
+  outletId?: number;
+  workingHours: WorkingHourType[]
 }
 
 type AddressT = {
-  id: number;
+  id?: number;
   street: string;
   city: string;
   state: string;
@@ -110,13 +111,14 @@ interface OutletType {
   }
 
 interface VariantAttributeType {
-  id: number;
+  id?: number;
   name: string;
+  value: string;
 }
 
-interface CustomStoreFormDataType {
-  storeId: number;
-  storeName: string;
+interface CustomOutletFormDataType {
+  outletId: number;
+  outletName: string;
   inStock?: number;
   lowStockAlert?: number;
   price: number;
@@ -217,10 +219,12 @@ export type StoreT = StoreType;
 
 export type OutletT = OutletType;
 
+export type WorkingHourT = WorkingHourType;
+
 export type UnitT = UnitType;
 
 export type ComponentT = ComponentType;
 
-export type CustomStoreFormDataT = CustomStoreFormDataType;
+export type CustomOutletFormDataT = CustomOutletFormDataType;
 
 export type VariantAttributeT = VariantAttributeType;

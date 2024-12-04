@@ -51,7 +51,7 @@ import ImgForUse from '../../../../public/assets/img/img-05.jpg';
 import { all_routes } from '../../../Router/all_routes';
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { productId } = useParams();
 
   const [product, setProduct] = useState<ProductT | null>(null);
   const [loading, setLoading] = useState(true);
@@ -63,7 +63,7 @@ const ProductDetail = () => {
     isLoading: isProductFetching,
   } = useGetProductsQuery([]);
   const fetchedProduct = useSelector((state) => {
-    return selectProductById(state, Number(id));
+    return selectProductById(state, Number(productId));
   });
 
   useEffect(() => {

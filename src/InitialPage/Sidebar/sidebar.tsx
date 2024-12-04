@@ -40,10 +40,12 @@ const createMenuItem = (
 const sideItems: MenuItem[] = [
   createMenuItem('Dashboard', 'dashboard', <img src={menu} alt="" width={10} height={10} />, '/admin-dashboard'),
 
+  // Point of Sale
   createMenuItem('Point of Sale', 'point-of-sale', <img src={tag} alt="" width={10} height={10} />, '#', []),
 
+  // Inventory
   createMenuItem('Inventory', 'inventory', <img src={inventory} alt="" width={10} height={10} />, '#', [
-    createMenuItem('Products', 'products', <img src={product} alt="" width={10} height={10} />, '/outlet-list'),
+    createMenuItem('Products', 'products', <img src={product} alt="" width={10} height={10} />, '/outlet-products'),
 
     // createMenuItem('Create Product', 'create-product', <ProductOutlined />, '/add-products'),
 
@@ -61,6 +63,7 @@ const sideItems: MenuItem[] = [
   ]),
   createMenuItem('Report', 'report', <img src={people} alt="" width={10} height={10} />, '/report'),
 
+  // People
   createMenuItem('People', 'people', <img src={people} alt="" width={10} height={10} />, '#', [
     createMenuItem('Customers', 'customers', <img src={product} alt="" width={10} height={10} />, '#'),
 
@@ -69,8 +72,18 @@ const sideItems: MenuItem[] = [
     createMenuItem('Suppliers', 'suppliers', <img src={store} alt="" width={10} height={10} />, '/supplier-list'),
   ]),
 
-  createMenuItem('Store Setup', 'store-setup', <img src={people} alt="" width={10} height={10} />, '#', []),
+  // Store Setup
+  createMenuItem('Store Setup', 'store-setup', <img src={people} alt="" width={10} height={10} />, '#', [
+    createMenuItem('General', 'general', <img src={category} alt="" width={10} height={10} />, '#'),
 
+    createMenuItem('Outlets & Registers', 'outlets-registers', <img src={store} alt="" width={10} height={10} />, '/outlet-list'),
+
+    createMenuItem('Receipts', 'receipts', <img src={store} alt="" width={10} height={10} />, '#'),
+
+    createMenuItem('Payment Types', 'payment-types', <img src={stock} alt="" width={10} height={10} />, '#'),
+  ]),
+
+  // User
   createMenuItem(
     'Users',
     'users',
@@ -78,6 +91,7 @@ const sideItems: MenuItem[] = [
     '/users',
   ),
 
+  // Settings
   createMenuItem('Settings', 'settings', <SettingOutlined />, '/settings'),
 ];
 

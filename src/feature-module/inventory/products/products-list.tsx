@@ -523,7 +523,12 @@ const ProductList = () => {
               </div>
             </div>
             <div>
-              <Form form={form} name="advanced_search" className="ant-advanced-search-form" onFinish={handleSearch}>
+              <Form
+                form={form}
+                name="advanced_search"
+                className="ant-advanced-search-form"
+                onFinish={handleSearch}
+              >
                 <Row gutter={20} style={{ marginBottom: 30 }}>
                   {getFields()}
                 </Row>

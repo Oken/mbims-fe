@@ -25,6 +25,12 @@ const productAdapter = createEntityAdapter<ProductT, EntityId>({
   sortComparer: (a, b) => a.productName.localeCompare(b.productName),
 });
 
+const productTemplateAdapter = createEntityAdapter<ProductT, EntityId>({
+  // sort by product name
+  selectId: (template: ProductT): number => template.id,
+  sortComparer: (a, b) => a.productName.localeCompare(b.productName),
+});
+
 const productCategoryAdapter = createEntityAdapter<ProductCategoryT, EntityId>({
   // sort by product category name
   selectId: (category: ProductCategoryT): number => category.id,
@@ -109,6 +115,7 @@ type AddSupplierT = Omit<SupplierT, 'id'>;
 type AddBrandT = Omit<ProductBrandT, 'id'>;
 
 const initialProductState = productAdapter.getInitialState();
+const initialTemplateState = productTemplateAdapter.getInitialState();
 const initialCategoryState = productCategoryAdapter.getInitialState();
 const initialSubcategoryState = productSubcategoryAdapter.getInitialState();
 const initialBrandState = productBrandAdapter.getInitialState();
@@ -159,6 +166,7 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
       }),
       invalidatesTags: ['product'],
     }),
+
     editProduct: builder.mutation({
       query: (product) => ({
         url: `/products/${product.id}`, // Hypothetical endpoint
@@ -174,6 +182,19 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
         body: productId,
       }),
       invalidatesTags: ['product'],
+    }),
+
+    // Product templates
+    getProductTemplates: builder.query({
+      query: () => '/products/template',
+      transformResponse: (responseData: any) => {
+        console.log(
+          'initialState for a GET /products/template: ',
+          initialTemplateState, responseData
+        );
+        return productTemplateAdapter.setAll(initialTemplateState, responseData);
+      },
+      providesTags: ['product'],
     }),
 
     // Product categories
@@ -365,7 +386,7 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
     getOutlets: builder.query({
       query: () => '/outlets',
       transformResponse: (responseData: any) => {
-        console.log('initialStoreState: ', initialOutletState, responseData);
+        console.log('initialOutletState: ', initialOutletState, responseData);
         return outletAdapter.setAll(initialOutletState, responseData);
       },
       providesTags: ['outlet'],
@@ -375,6 +396,7 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
         url: '/outlets',
         headers: {
           'Content-Type': 'application/json',
+          // 'Content': 'application/json',
         },
         method: 'POST',
         body: initialPost,
@@ -525,6 +547,7 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
 export const {
   // Queries
   useGetProductsQuery,
+  useGetProductTemplatesQuery,
   useGetProductCategoriesQuery,
   useGetProductSubcategoriesQuery,
   useGetProductBrandsQuery,
@@ -579,6 +602,7 @@ export const {
 } = productExtendsmainAPISlice;
 
 const selectProducts = productExtendsmainAPISlice.endpoints.getProducts.select([]);
+const selectProductTemplates = productExtendsmainAPISlice.endpoints.getProductTemplates.select([]);
 const selectProductCategories = productExtendsmainAPISlice.endpoints.getProductCategories.select([]);
 const selectProductSubcategories = productExtendsmainAPISlice.endpoints.getProductSubcategories.select([]);
 const selectProductBrands = productExtendsmainAPISlice.endpoints.getProductBrands.select([]);
@@ -596,6 +620,13 @@ export const {
   selectAll: selectAllProducts,
   selectById: selectProductById,
 } = productAdapter.getSelectors((state: any) => selectProducts(state)?.data || initialProductState);
+
+export const {
+  selectAll: selectAllTemplates,
+  selectById: selectTemplateById,
+} = productTemplateAdapter.getSelectors(
+    (state: any) => selectProductTemplates(state)?.data || initialTemplateState
+  );
 
 export const {
   selectAll: selectAllCategories,

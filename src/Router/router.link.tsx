@@ -1,7 +1,7 @@
 import { Route, Navigate } from 'react-router-dom';
 import Dashboard from '../feature-module/dashboard/Dashboard';
 import SalesDashbaord from '../feature-module/dashboard/salesdashbaord';
-import BrandList from '../feature-module/inventory/brand-list';
+import BrandList from '../feature-module/inventory/brands/brand-list';
 import VariantAttributes from '../feature-module/inventory/variant-attributes';
 import Warranty from '../feature-module/inventory/warranty';
 import PrintBarcode from '../feature-module/inventory/print-bar-code';
@@ -49,7 +49,7 @@ import ExpenseCategory from '../feature-module/FinanceAccounts/expense-category'
 import Calendar from '../feature-module/Application/calendar';
 import ExpiredProduct from '../feature-module/inventory/expired-product';
 import LowStock from '../feature-module/inventory/low-stock';
-import CategoryList from '../feature-module/inventory/category-list';
+import CategoryList from '../feature-module/inventory/categories/category-list';
 import SubCategories from '../feature-module/inventory/sub-categories';
 import EditProduct from '../feature-module/inventory/edit-product';
 import Videocall from '../feature-module/Application/video-call';
@@ -158,14 +158,22 @@ import PayrollList from '../feature-module/hrm/payroll-list';
 // !Move every modified route you worked on under this
 import ProductsList from '../feature-module/inventory/products/products-list';
 import ProductDetail from '../feature-module/inventory/products/product-item';
-import AddProducts from '../feature-module/inventory/add-products';
-import AddStandardProduct from '../feature-module/inventory/add-products/standard-product';
-import AddCompositeProduct from '../feature-module/inventory/add-products/composite-product';
-import AddVariantProduct from '../feature-module/inventory/add-products/variant-product';
+import AddProducts from '../feature-module/inventory/products/add-products';
+import AddStandardProduct from '../feature-module/inventory/products/add-products/standard-product';
+import AddCompositeProduct from '../feature-module/inventory/products/add-products/composite-product';
+import AddVariantProduct from '../feature-module/inventory/products/add-products/variant-product';
 // import AddProduct from '../feature-module/inventory/add-product';
-import OutletList from '../feature-module/inventory/products/outlet-list';
-import SupplierList from '../feature-module/inventory/supplier-list';
-import SupplierDetail from '../feature-module/inventory/supplier-item';
+import OutletList from '../feature-module/inventory/outlets/outlet-list';
+import AddOutlet from '../feature-module/inventory/outlets/add-outlet';
+import OutletProducts from '../feature-module/inventory/products/outlet-products';
+import TemplateList from '../feature-module/inventory/products/template/template-list';
+import SupplierList from '../feature-module/inventory/suppliers/supplier-list';
+import SupplierDetail from '../feature-module/inventory/suppliers/supplier-item';
+
+// Product Templates
+import StandardTemplate from '../feature-module/inventory/products/template/add-products/standard-product';
+import CompositeTemplate from '../feature-module/inventory/products/template/add-products/composite-product';
+import VariantTemplate from '../feature-module/inventory/products/template/add-products/variant-product';
 
 const routes = all_routes;
 
@@ -1335,7 +1343,7 @@ export const publicRoutes = [
   },
   {
     id: 113,
-    path: `product/:id`,
+    path: `product/:productId`,
     name: 'productdetails',
     element: <ProductDetail />,
     route: Route,
@@ -1383,41 +1391,84 @@ export const publicRoutes = [
     route: Route,
   },
   {
-    id: 100,
+    id: 120,
     path: routes.addStandardProduct,
     name: 'standard-products',
     element: <AddStandardProduct />,
     route: Route,
   },
   {
-    id: 101,
+    id: 121,
     path: routes.addCompositeProduct,
     name: 'composite-products',
     element: <AddCompositeProduct />,
     route: Route,
   },
   {
-    id: 102,
+    id: 122,
     path: routes.addVariantProduct,
     name: 'variant-products',
     element: <AddVariantProduct />,
     route: Route,
   },
   {
-    id: 103,
+    id: 123,
     path: routes.outletlist,
     name: 'outlet-list',
     element: <OutletList />,
     route: Route,
   },
   {
-    id: 102,
-    path: routes.supplierdetail,
+    id: 124,
+    path: routes.addoutlet,
+    name: 'add-outlet',
+    element: <AddOutlet />,
+    route: Route,
+  },
+  {
+    id: 125,
+    path: routes.outletproducts,
+    name: 'outlet-products',
+    element: <OutletProducts />,
+    route: Route,
+  },
+  {
+    id: 126,
+    path: routes.templatelist,
+    name: 'template-list',
+    element: <TemplateList />,
+    route: Route,
+  },
+  {
+    id: 127,
+    path: `${routes.supplierdetail}/:supplierId`,
     name: 'supplier-detail',
     element: <SupplierDetail />,
     route: Route,
   },
+  {
+    id: 128,
+    path: `template/standard/:templateId`,
+    name: 'template-standard',
+    element: <StandardTemplate />,
+    route: Route,
+  },
+  {
+    id: 128,
+    path: `template/composite/:templateId`,
+    name: 'template-composite',
+    element: <CompositeTemplate />,
+    route: Route,
+  },
+  {
+    id: 128,
+    path: `template/variant/:templateId`,
+    name: 'template-variant',
+    element: <VariantTemplate />,
+    route: Route,
+  },
 ];
+
 export const posRoutes = [
   {
     id: 1,

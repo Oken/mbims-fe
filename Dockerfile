@@ -22,12 +22,8 @@ FROM nginx:alpine
 # Copy the build output from the builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy custom NGINX configuration if necessary (optional)
-# COPY nginx.conf /etc/nginx/nginx.conf
-
 # Expose port 80
 EXPOSE 80
 
 # Start NGINX
 CMD ["nginx", "-g", "daemon off;"]
-

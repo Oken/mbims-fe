@@ -295,7 +295,11 @@ const CategoryList = () => {
                   justify={'end'}
                 >
                   <Col style={{ maxWidth: 'fit-content' }}>
-                    <CustomButton backgroundColor="white" textColor="#2D7DEE" className="search-button">
+                    <CustomButton
+                      backgroundColor="white"
+                      textColor="#2D7DEE"
+                      // className="search-button"
+                    >
                       <Download className="me-2" />
                       Import Categories
                     </CustomButton>
@@ -304,7 +308,7 @@ const CategoryList = () => {
                     <CustomButton
                       backgroundColor="#2D7DEE"
                       textColor="white"
-                      className="search-button"
+                      // className="search-button"
                       onClick={() => {
                         openAddCategoryModal();
                         setCreatedNewCategory(false);
@@ -357,7 +361,12 @@ const CategoryList = () => {
                     </div>
                   </Col>
                   <Col span={6} style={{ maxWidth: 'fit-content', paddingRight: 0 }}>
-                    <CustomButton backgroundColor="white" textColor="#2D7DEE" className="search-button">
+                    <CustomButton
+                      backgroundColor="white"
+                      textColor="#2D7DEE"
+                      className="search-button"
+                      style={{ whiteSpace: 'nowrap' }}
+                    >
                       <Upload className="me-2" />
                       Export List
                     </CustomButton>

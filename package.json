@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
-    "@ckeditor/ckeditor5-build-classic": "^41.3.1",
+    "@ckeditor/ckeditor5-build-classic": "^44.0.0",
     "@ckeditor/ckeditor5-react": "^6.3.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -78,7 +78,7 @@
     "react-simple-wysiwyg": "^3.0.2",
     "react-slick": "^0.30.2",
     "react-svg-worldmap": "^2.0.0-alpha.16",
-    "react-sweetalert2": "^0.6.0",
+    "react-sweetalert2": "^0.5.2",
     "react-tag-input-component": "^2.0.2",
     "react-time-picker": "^7.0.0",
     "react-timepicker": "^2.0.2",

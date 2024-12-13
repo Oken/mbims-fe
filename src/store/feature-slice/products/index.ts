@@ -201,8 +201,8 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
     getProductCategories: builder.query({
       query: () => '/product-categories',
       transformResponse: (responseData: any) => {
-        console.log('initialCategoryState: ', initialCategoryState, responseData);
-        return productCategoryAdapter.setAll(initialCategoryState, responseData);
+        console.log('initialCategoryState: ', initialCategoryState, responseData.content);
+        return productCategoryAdapter.setAll(initialCategoryState, responseData.content);
       },
       providesTags: ['productCategory'],
     }),
@@ -275,8 +275,8 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
     getProductBrands: builder.query({
       query: () => '/brands',
       transformResponse: (responseData: any) => {
-        console.log('initialBrandState: ', initialBrandState, responseData);
-        return productBrandAdapter.setAll(initialBrandState, responseData);
+        console.log('initialBrandState: ', initialBrandState, responseData.content);
+        return productBrandAdapter.setAll(initialBrandState, responseData.content);
       },
       providesTags: ['brand'],
     }),
@@ -386,8 +386,8 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
     getOutlets: builder.query({
       query: () => '/outlets',
       transformResponse: (responseData: any) => {
-        console.log('initialOutletState: ', initialOutletState, responseData);
-        return outletAdapter.setAll(initialOutletState, responseData);
+        console.log('initialOutletState: ', initialOutletState, responseData.content);
+        return outletAdapter.setAll(initialOutletState, responseData.content);
       },
       providesTags: ['outlet'],
     }),
@@ -424,8 +424,8 @@ export const productExtendsmainAPISlice = mainAPISlice.injectEndpoints({
     getProductSuppliers: builder.query({
       query: () => '/suppliers',
       transformResponse: (responseData: any) => {
-        console.log('initialSupplierState: ', initialSupplierState, responseData);
-        return productSupplierAdapter.setAll(initialSupplierState, responseData);
+        console.log('initialSupplierState: ', initialSupplierState, responseData.content);
+        return productSupplierAdapter.setAll(initialSupplierState, responseData.content);
       },
       providesTags: ['supplier'],
     }),

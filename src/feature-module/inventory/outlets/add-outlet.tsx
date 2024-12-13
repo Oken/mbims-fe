@@ -315,7 +315,7 @@ const AddOutlet = () => {
               >
                 <Col span={10} style={{ paddingLeft: 0 }}>
                   <div style={{ fontWeight: 500 }}>
-                    <Breadcrumb separator={<RightOutlined />}>
+                    {/*<Breadcrumb separator={<RightOutlined />}>
                       <Breadcrumb.Item>
                         Store Setup
                       </Breadcrumb.Item>
@@ -334,7 +334,20 @@ const AddOutlet = () => {
                           Add New Outlet
                         </Link>
                       </Breadcrumb.Item>
-                    </Breadcrumb>
+                    </Breadcrumb>*/}
+                    <Breadcrumb separator={<RightOutlined />}
+                      items={[
+                        {
+                          title: 'Store Setup'
+                        },
+                        {
+                          title: <Link to="/outlet-list">Outlets & Registers</Link>
+                        },
+                        {
+                          title: <Link style={{ fontWeight: 'bold' }} to="#">Add New Outlet</Link>
+                        },
+                      ]}
+                    />
                   </div>
                 </Col>
                 <Col span={14} style={{ paddingRight: 0 }}>

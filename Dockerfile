@@ -22,8 +22,8 @@ FROM nginx:alpine AS production
 # Copy the build output from the builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Expose port 8089
+EXPOSE 8089
 
 # Start NGINX
 CMD ["nginx", "-g", "daemon off;"]

@@ -4,7 +4,7 @@ services:
       context: .
       target: production
     ports:
-      - "80:80"
+      - "8089:80"
     depends_on:
       - app
     volumes:

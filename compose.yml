@@ -1,4 +1,15 @@
 services:
+  web:
+    build:
+      context: .
+      target: production
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - ./dist:/usr/share/nginx/html
+
   app:
     image: node:20-alpine
     working_dir: /app
@@ -9,11 +20,3 @@ services:
       target: builder
     command: npm run build
 
-  web:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-    volumes:
-      - ./dist:/usr/share/nginx/html
-    depends_on:
-      - app

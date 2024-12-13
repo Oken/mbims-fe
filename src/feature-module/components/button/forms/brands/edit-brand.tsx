@@ -67,11 +67,11 @@ const EditBrandForm = ({ closeEditBrandModal, brand, setCreatedNewBrand }: EditB
         setCreatedNewBrand(true);
 
         form.resetFields(); // Reset form after successful submission
-        message.success('Brand added successfully');
+        message.success('Brand edited successfully');
         closeEditBrandModal();
       } else if(isError) {
-        message.error('Failed to add brand');
-        console.log('Failed to add brand: ', error);
+        message.error('Failed to edit brand');
+        console.log('Failed to edit brand: ', error);
       }
     }
 
